@@ -1,0 +1,7 @@
+name = "natofit-analyze-food"
+main = "workers/analyze-food/index.js"
+compatibility_date = "2024-04-01"
+
+[vars]
+# As variáveis de ambiente (como GEMINI_API_KEY) devem ser configuradas 
+# diretamente no painel da Cloudflare por segurança.

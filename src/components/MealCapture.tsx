@@ -70,8 +70,9 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
         setResult(data);
         setStep('result');
       }
-    } catch {
-      setError('Falha ao conectar com o servidor. Verifique sua conexão.');
+    } catch (err: any) {
+      console.error('Erro na análise:', err);
+      setError(`Erro de Conexão: ${err.message || 'Verifique se a URL do Worker está correta no painel do Pages'}`);
       setStep('preview');
     }
   };
