@@ -30,7 +30,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-blue-50 text-slate-800 font-sans">
+    <div className="bg-blue-50 text-slate-800 font-sans w-full relative">
       {/* Header */}
       <header className="bg-blue-50/90 backdrop-blur-2xl fixed top-0 w-full z-50 flex justify-between items-center px-6 md:px-8 py-4"
         style={{ boxShadow: '0 4px 20px rgba(163,177,198,0.2)' }}>
