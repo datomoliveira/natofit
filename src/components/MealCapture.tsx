@@ -64,7 +64,7 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
       const data: MealResult = await resp.json();
 
       if (data.error) {
-        setError(data.error);
+        setError(`${data.error}: ${data.details || ''}`);
         setStep('preview');
       } else {
         setResult(data);
