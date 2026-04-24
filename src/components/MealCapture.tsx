@@ -1,6 +1,7 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { getDeviceId } from '../utils/device';
+import { animate, utils } from 'animejs';
 
 const WORKER_URL = import.meta.env.VITE_WORKER_ANALYZE_FOOD || 'https://natofit.datomoliveira.workers.dev';
 
@@ -31,9 +32,25 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
   const [saving, setSaving] = useState(false);
   const [contextText, setContextText] = useState('');
   const [isRecording, setIsRecording] = useState(false);
+  const [animatedCalories, setAnimatedCalories] = useState(0);
   
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (step === 'result' && result) {
+      const counter = { val: 0 };
+      animate(counter, {
+        val: result.calorias_totais,
+        duration: 1500,
+        easing: 'easeOutExpo',
+        modifier: utils.round(0),
+        onUpdate: () => setAnimatedCalories(counter.val)
+      });
+    } else if (step === 'idle') {
+      setAnimatedCalories(0);
+    }
+  }, [step, result]);
 
   const startRecording = () => {
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
@@ -338,7 +355,7 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
               {/* Calorias em destaque */}
               <div className="clay-effect rounded-3xl p-6 text-center mb-5"
                 style={{ boxShadow: 'inset 4px 4px 12px rgba(163,177,198,0.3), inset -4px -4px 10px rgba(255,255,255,0.8)' }}>
-                <span className="text-6xl font-black text-blue-500 leading-none">{result.calorias_totais}</span>
+                <span className="text-6xl font-black text-blue-500 leading-none">{animatedCalories}</span>
                 <span className="text-slate-400 font-bold text-lg block mt-1">kcal</span>
               </div>
 
@@ -398,7 +415,7 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
           <span className="material-symbols-outlined text-green-500 text-6xl mb-4 block">check_circle</span>
           <h2 className="text-3xl font-black text-slate-800 mb-2">Refeição Salva!</h2>
           <p className="text-slate-500 font-semibold mb-2">
-            <span className="text-blue-500 font-black text-xl">{result.calorias_totais} kcal</span> registradas no seu painel.
+            <span className="text-blue-500 font-black text-xl">{animatedCalories || result.calorias_totais} kcal</span> registradas no seu painel.
           </p>
           <p className="text-slate-400 font-bold text-sm mb-8">
             Carbs: {result.carboidratos_g}g · Prot: {result.proteinas_g}g · Gord: {result.gordura_g}g
