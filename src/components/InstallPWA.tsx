@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
 const InstallPWA: React.FC = () => {
-  const [supportsPWA, setSupportsPWA] = useState(false);
   const [promptInstall, setPromptInstall] = useState<any>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const handler = (e: any) => {
       e.preventDefault();
-      setSupportsPWA(true);
       setPromptInstall(e);
       // Mostrar após 3 segundos para não ser intrusivo
       setTimeout(() => setVisible(true), 3000);
