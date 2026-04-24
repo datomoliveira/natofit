@@ -19,10 +19,18 @@ const ALLOWED_ORIGINS = [
 
 // Prompt estrito: retorna APENAS o JSON com os macros completos do prato
 const SYSTEM_PROMPT = `Você é um nutricionista especializado em análise visual de alimentos.
-Analise a comida na imagem e retorne APENAS um objeto JSON válido, sem markdown, sem explicações.
+Analise a imagem e retorne APENAS um objeto JSON válido, sem markdown, sem explicações.
+
+REGRAS CRÍTICAS PARA ESTIMATIVA DE PESO:
+- Seja CONSERVADOR e CÉTICO. Sempre estime pelo lado MENOR.
+- Se o alimento estiver em um recipiente, avalie visualmente o nível de preenchimento. Um pote pela metade contém metade do peso total.
+- NÃO use o peso padrão de uma porção embalada — use apenas o que está VISÍVEL na imagem.
+- Prefira subestimar a superestimar: errar para menos é melhor do que exagerar.
+- Exemplo: pote de 250g visto na imagem com ~1/3 do conteúdo → estime ~80g, não 250g.
+
 O JSON deve ter exatamente estas 8 chaves:
 {
-  "descricao_itens": "<uma frase curta listando o que foi identificado no prato>",
+  "descricao_itens": "<frase curta listando o que foi identificado>",
   "calorias_totais": <número inteiro>,
   "peso_estimado_g": <número inteiro>,
   "carboidratos_g": <número decimal>,
@@ -31,7 +39,7 @@ O JSON deve ter exatamente estas 8 chaves:
   "acucares_g": <número decimal>,
   "fibras_g": <número decimal>
 }
-Se não houver comida visível na imagem, retorne: {"error": "Nenhum alimento identificado na imagem"}`;
+Se não houver comida visível, retorne: {"error": "Nenhum alimento identificado na imagem"}`;
 
 function corsHeaders() {
   return {
@@ -92,9 +100,12 @@ export default {
     const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${env.GEMINI_API_KEY}`;
 
     const geminiPayload = {
+      system_instruction: {
+        parts: [{ text: SYSTEM_PROMPT }]
+      },
       contents: [{
         parts: [
-          { text: "Analise a imagem da comida. Retorne APENAS um JSON com estas chaves exatas: calorias_totais (int), peso_estimado_g (int), carboidratos_g (float), proteinas_g (float), gordura_g (float), acucares_g (float), fibras_g (float). Não use markdown, não explique nada." },
+          { text: "Analise a imagem e retorne o JSON conforme instruído." },
           { inline_data: { mime_type: mimeType, data: imageBase64 } },
         ],
       }],
