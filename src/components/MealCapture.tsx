@@ -2,7 +2,7 @@ import React, { useState, useRef, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
 import { getDeviceId } from '../utils/device';
 
-const WORKER_URL = import.meta.env.VITE_WORKER_ANALYZE_FOOD || 'http://localhost:8787';
+const WORKER_URL = import.meta.env.VITE_WORKER_ANALYZE_FOOD || 'https://natofit.datomoliveira.workers.dev';
 
 interface MealResult {
   calorias_totais: number;
