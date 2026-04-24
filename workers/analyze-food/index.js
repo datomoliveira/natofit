@@ -89,7 +89,7 @@ export default {
     // ── Chamada ao Gemini Vision ──────────────────────────────────────────────
     // A imagem (imageBase64) fica APENAS aqui na memória durante este request.
     // Não é gravada em nenhum lugar. Ao terminar a função, a memória é liberada.
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${env.GEMINI_API_KEY}`;
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash:generateContent?key=${env.GEMINI_API_KEY}`;
 
     const geminiPayload = {
       contents: [{
