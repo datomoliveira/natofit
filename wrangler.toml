@@ -1,4 +1,4 @@
-name = "natofit-analyze-food"
+name = "natofit"
 main = "workers/analyze-food/index.js"
 compatibility_date = "2024-04-01"
 
