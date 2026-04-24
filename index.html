@@ -66,25 +66,38 @@
         overflow-x: hidden;
         overscroll-behavior: none;
         -webkit-tap-highlight-color: transparent;
-        /* Suporte para notch/entalhe */
         padding-top: env(safe-area-inset-top);
         padding-bottom: env(safe-area-inset-bottom);
-        height: 100%;
         width: 100%;
+        min-width: 100%;
+        position: relative;
       }
-      ::-webkit-scrollbar {
-        display: none;
+      
+      /* FORÇAR MOBILE: Garantir que nada vaze a largura da tela */
+      #root {
+        width: 100%;
+        max-width: 100vw;
+        overflow-x: hidden;
       }
-      /* Prevenir seleção de texto para parecer app */
-      * {
-        user-select: none;
-        -webkit-user-select: none;
-        -webkit-touch-callout: none;
+
+      .container {
+        width: 100% !important;
+        max-width: 100vw !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
       }
-      input, textarea {
-        user-select: text;
-        -webkit-user-select: text;
+
+      /* Ajuste de escala para textos no mobile */
+      @media (max-width: 640px) {
+        h1 { font-size: 2.5rem !important; line-height: 1.1 !important; }
+        .p-10, .p-14 { padding: 1.5rem !important; }
+        .rounded-\[3rem\] { border-radius: 2rem !important; }
+        .clay-effect { border-radius: 2rem !important; }
+        button { width: 100% !important; }
       }
+
+      ::-webkit-scrollbar { display: none; }
+      * { box-sizing: border-box; }
     </style>
   </head>
   <body>
