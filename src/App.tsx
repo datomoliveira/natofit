@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import ProfileForm from './components/ProfileForm';
 import Dashboard from './components/Dashboard';
 import MealCapture from './components/MealCapture';
+import InstallPWA from './components/InstallPWA';
 
 type View = 'landing' | 'tracker' | 'create-plan' | 'dashboard';
 
@@ -200,6 +201,9 @@ function App() {
           </button>
         ))}
       </nav>
+
+      {/* Convite para Instalar PWA */}
+      <InstallPWA />
     </div>
   );
 }

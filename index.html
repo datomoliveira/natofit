@@ -51,7 +51,25 @@
       .animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
       @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
     </style>
-    <title>Natofit - Performance de Elite</title>
+    <title>Natofit - IA Nutricional</title>
+    <meta name="description" content="Controle calórico inteligente com IA e Claymorphism">
+    <meta name="theme-color" content="#3b82f6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Natofit">
+    <link rel="apple-touch-icon" href="/icon-192.png">
+
+    <style>
+      /* Esconder barra de rolagem e bounce no iOS */
+      html, body {
+        overflow-x: hidden;
+        overscroll-behavior: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+      ::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
