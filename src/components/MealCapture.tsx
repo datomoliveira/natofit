@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { getDeviceId } from '../utils/device';
-import { animate, utils } from 'animejs';
+import { animate, utils, waapi } from 'animejs';
 
 const WORKER_URL = import.meta.env.VITE_WORKER_ANALYZE_FOOD || 'https://natofit.datomoliveira.workers.dev';
 
@@ -47,6 +47,20 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
         modifier: utils.round(0),
         onUpdate: () => setAnimatedCalories(counter.val)
       });
+
+      // Animação com os exatos parâmetros (x, scale, skew e rotate)
+      // Revertidos do estado bagunçado para o estado perfeito!
+      animate('.macro-card', {
+        opacity: [0, 1],
+        x: ['15rem', 0],
+        scale: [1.25, 1],
+        skew: [-45, 0],
+        rotate: ['1turn', '0turn'],
+        duration: 1200,
+        delay: utils.stagger(100, { start: 300 }),
+        easing: 'easeOutElastic(1, .6)'
+      });
+
     } else if (step === 'idle') {
       setAnimatedCalories(0);
     }
@@ -375,7 +389,7 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
                   { icon: 'icecream',    color: 'text-pink-400',  label: 'Açúcares', value: result.acucares_g },
                   { icon: 'grass',       color: 'text-green-500', label: 'Fibras',   value: result.fibras_g },
                 ].map(m => (
-                  <div key={m.label} className="clay-effect rounded-3xl p-4 text-center"
+                  <div key={m.label} className="macro-card opacity-0 clay-effect rounded-3xl p-4 text-center"
                     style={{ boxShadow: 'inset 3px 3px 8px rgba(163,177,198,0.3), inset -3px -3px 8px rgba(255,255,255,0.8)' }}>
                     <span className={`material-symbols-outlined ${m.color} text-xl mb-1 block`}>{m.icon}</span>
                     <p className="text-lg font-black text-slate-700">{m.value}g</p>
