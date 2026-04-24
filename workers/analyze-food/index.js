@@ -97,7 +97,7 @@ export default {
     // ── Chamada ao Gemini Vision ──────────────────────────────────────────────
     // A imagem (imageBase64) fica APENAS aqui na memória durante este request.
     // Não é gravada em nenhum lugar. Ao terminar a função, a memória é liberada.
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${env.GEMINI_API_KEY}`;
+    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     const geminiPayload = {
       system_instruction: {
@@ -115,36 +115,63 @@ export default {
       },
     };
 
-    let geminiData;
-    try {
-      const geminiResp = await fetch(geminiUrl, {
+    async function callGemini(model) {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${env.GEMINI_API_KEY}`;
+      const resp = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(geminiPayload),
       });
 
-      if (!geminiResp.ok) {
-        const errText = await geminiResp.text();
+      if (!resp.ok) {
+        const errText = await resp.text();
         let errorMessage = errText;
         try {
           const errJson = JSON.parse(errText);
           errorMessage = errJson.error?.message || errText;
         } catch {}
-        
+        throw new Error(`[${resp.status}] ${errorMessage}`);
+      }
+      return await resp.json();
+    }
+
+    let geminiData;
+    let lastError = '';
+
+    // 1. Exponential Backoff com gemini-2.5-flash
+    const mainModel = 'gemini-2.5-flash';
+    const delays = [0, 2000, 4000]; // Tentativa inicial (0s), falhou -> 2s, falhou -> 4s
+
+    for (let i = 0; i < delays.length; i++) {
+      try {
+        if (delays[i] > 0) {
+          await sleep(delays[i]);
+        }
+        geminiData = await callGemini(mainModel);
+        break; // Sucesso, sai do loop
+      } catch (e) {
+        lastError = e.message;
+        console.error(`Tentativa ${i + 1} com ${mainModel} falhou:`, lastError);
+      }
+    }
+
+    // 2. Fallback Model (gemini-2.0-flash) se todas as tentativas anteriores falharam
+    if (!geminiData) {
+      const fallbackModel = 'gemini-2.0-flash';
+      try {
+        console.log("Iniciando fallback para:", fallbackModel);
+        geminiData = await callGemini(fallbackModel);
+      } catch (e) {
+        lastError = e.message;
+        console.error(`Fallback com ${fallbackModel} falhou:`, lastError);
         return new Response(JSON.stringify({ 
-          error: 'Erro do Google Gemini', 
-          details: errorMessage 
+          error: 'Alta demanda ou erro no Google Gemini. Tente novamente em alguns instantes.', 
+          details: lastError 
         }), {
-          status: geminiResp.status, 
+          status: 503, 
           headers: { ...cors, 'Content-Type': 'application/json' },
         });
       }
-
-      geminiData = await geminiResp.json();
-    } catch (e) {
-      return new Response(JSON.stringify({ error: 'Falha de rede/Worker', details: e.message }), {
-        status: 502, headers: { ...cors, 'Content-Type': 'application/json' },
-      });
     }
     // ── Imagem descartada aqui — não existe mais na memória ──────────────────
 

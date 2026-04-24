@@ -67,7 +67,7 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
 
       if (data.error) {
         const errorMsg = typeof data.error === 'object' ? JSON.stringify(data.error) : data.error;
-        setError(`${errorMsg} ${data.details || ''}`);
+        setError(`Ops! ${errorMsg}`);
         setStep('preview');
       } else {
         setResult(data);
@@ -75,7 +75,7 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
       }
     } catch (err: any) {
       console.error('Erro na análise:', err);
-      setError(`Erro de Conexão: ${err.message}. URL tentada: ${WORKER_URL}`);
+      setError(`Os servidores estão superlotados no momento. Tente novamente em 1 minuto.`);
       setStep('preview');
     }
   };
@@ -213,7 +213,7 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
               }}
             >
               {step === 'analyzing' ? (
-                <><span className="material-symbols-outlined animate-spin">refresh</span>Analisando com IA...</>
+                <><span className="material-symbols-outlined animate-spin">refresh</span>Calculando calorias...</>
               ) : (
                 <><span className="material-symbols-outlined">biotech</span>Analisar Prato</>
               )}
