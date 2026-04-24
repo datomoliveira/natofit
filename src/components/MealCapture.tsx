@@ -12,6 +12,7 @@ interface MealResult {
   gordura_g: number;
   acucares_g: number;
   fibras_g: number;
+  descricao_itens?: string;
   error?: string;
   details?: string;
 }
@@ -231,7 +232,12 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
               <img src={imageDataUrl} alt="Prato" className="w-full h-48 object-cover opacity-80" />
             )}
             <div className="p-8">
-              <p className="text-xs font-black text-blue-500 uppercase tracking-widest mb-4">Resultado da Análise</p>
+              <p className="text-xs font-black text-blue-500 uppercase tracking-widest mb-2">Resultado da Análise</p>
+              {result.descricao_itens && (
+                <p className="text-slate-600 font-bold text-lg mb-4 leading-tight">
+                  {result.descricao_itens}
+                </p>
+              )}
 
               {/* Calorias em destaque */}
               <div className="clay-effect rounded-3xl p-6 text-center mb-5"

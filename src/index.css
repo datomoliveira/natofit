@@ -28,16 +28,22 @@
   filter: brightness(0.95);
 }
 
-/* Global resets and Material Symbols */
-body {
+html, body {
   background-color: #f8fafc;
   color: #1e293b;
   font-family: 'Plus Jakarta Sans', sans-serif;
   min-height: 100vh;
   margin: 0;
-  overflow-y: auto !important;
+  overflow-y: scroll !important;
+  display: block !important;
   -webkit-overflow-scrolling: touch;
   -webkit-tap-highlight-color: transparent;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .material-symbols-outlined {

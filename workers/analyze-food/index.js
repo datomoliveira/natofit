@@ -20,18 +20,18 @@ const ALLOWED_ORIGINS = [
 // Prompt estrito: retorna APENAS o JSON com os macros completos do prato
 const SYSTEM_PROMPT = `Você é um nutricionista especializado em análise visual de alimentos.
 Analise a comida na imagem e retorne APENAS um objeto JSON válido, sem markdown, sem explicações.
-O JSON deve ter exatamente estas 7 chaves:
+O JSON deve ter exatamente estas 8 chaves:
 {
-  "calorias_totais": <número inteiro de kcal totais do prato>,
-  "peso_estimado_g": <número inteiro com o peso estimado do prato em gramas>,
-  "carboidratos_g": <número decimal de gramas de carboidratos>,
-  "proteinas_g": <número decimal de gramas de proteínas>,
-  "gordura_g": <número decimal de gramas de gordura total>,
-  "acucares_g": <número decimal de gramas de açúcares>,
-  "fibras_g": <número decimal de gramas de fibras alimentares>
+  "descricao_itens": "<uma frase curta listando o que foi identificado no prato>",
+  "calorias_totais": <número inteiro>,
+  "peso_estimado_g": <número inteiro>,
+  "carboidratos_g": <número decimal>,
+  "proteinas_g": <número decimal>,
+  "gordura_g": <número decimal>,
+  "acucares_g": <número decimal>,
+  "fibras_g": <número decimal>
 }
-Se não houver comida visível na imagem, retorne:
-{"error": "Nenhum alimento identificado na imagem"}`;
+Se não houver comida visível na imagem, retorne: {"error": "Nenhum alimento identificado na imagem"}`;
 
 function corsHeaders() {
   return {
