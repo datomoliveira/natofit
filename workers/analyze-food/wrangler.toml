@@ -4,3 +4,7 @@ compatibility_date = "2024-04-01"
 
 [vars]
 # GEMINI_API_KEY deve ser configurada no painel da Cloudflare.
+
+[observability]
+enabled = true
+head_sampling_rate = 1
