@@ -1,9 +1,6 @@
 name = "natofit"
-main = "workers/analyze-food/index.js"
+main = "index.js"
 compatibility_date = "2024-04-01"
-
-# Configuração para Cloudflare Pages (O Site)
-pages_build_output_dir = "dist"
 
 [vars]
 # GEMINI_API_KEY deve ser configurada no painel da Cloudflare.
