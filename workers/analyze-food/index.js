@@ -33,16 +33,10 @@ O JSON deve ter exatamente estas 7 chaves:
 Se não houver comida visível na imagem, retorne:
 {"error": "Nenhum alimento identificado na imagem"}`;
 
-function corsHeaders(origin) {
-  // Se for .pages.dev ou localhost ou o domínio nativo
-  const isAllowed = !origin || 
-                   origin.endsWith('.pages.dev') || 
-                   origin.includes('localhost') ||
-                   origin === 'https://natofit.pages.dev';
-  
+function corsHeaders() {
   return {
-    'Access-Control-Allow-Origin': isAllowed ? (origin || '*') : '*',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Max-Age': '86400',
   };
@@ -50,8 +44,12 @@ function corsHeaders(origin) {
 
 export default {
   async fetch(request, env) {
-    const origin = request.headers.get('Origin');
-    const cors = corsHeaders(origin);
+    const cors = corsHeaders();
+
+    // Se for apenas uma visita no navegador (GET), retorna um OK de teste
+    if (request.method === 'GET') {
+      return new Response('Natofit IA Worker: ONLINE 🚀', { headers: cors });
+    }
 
     // Preflight CORS
     if (request.method === 'OPTIONS') {
