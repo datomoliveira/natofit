@@ -50,10 +50,15 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
     const mimeType = imageDataUrl.split(';')[0].split(':')[1];
 
     try {
+      const payload = {
+        image: base64,
+        mimeType: mimeType
+      };
+
       const resp = await fetch(WORKER_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ image: base64, mimeType }),
+        body: JSON.stringify(payload),
       });
 
       const data: MealResult = await resp.json();

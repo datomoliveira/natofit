@@ -34,9 +34,12 @@ Se não houver comida visível na imagem, retorne:
 {"error": "Nenhum alimento identificado na imagem"}`;
 
 function corsHeaders(origin) {
-  const allowed = ALLOWED_ORIGINS.some(o => origin?.startsWith(o)) || !origin;
+  const isAllowed = !origin || 
+                   ALLOWED_ORIGINS.some(o => origin.startsWith(o)) || 
+                   origin.endsWith('.pages.dev');
+  
   return {
-    'Access-Control-Allow-Origin': allowed ? (origin || '*') : ALLOWED_ORIGINS[0],
+    'Access-Control-Allow-Origin': isAllowed ? origin : ALLOWED_ORIGINS[0],
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Max-Age': '86400',
