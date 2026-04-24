@@ -115,15 +115,25 @@ export default {
       });
 
       if (!geminiResp.ok) {
-        const err = await geminiResp.text();
-        return new Response(JSON.stringify({ error: 'Gemini API error', details: err }), {
-          status: 502, headers: { ...cors, 'Content-Type': 'application/json' },
+        const errText = await geminiResp.text();
+        let errorMessage = errText;
+        try {
+          const errJson = JSON.parse(errText);
+          errorMessage = errJson.error?.message || errText;
+        } catch {}
+        
+        return new Response(JSON.stringify({ 
+          error: 'Erro do Google Gemini', 
+          details: errorMessage 
+        }), {
+          status: geminiResp.status, 
+          headers: { ...cors, 'Content-Type': 'application/json' },
         });
       }
 
       geminiData = await geminiResp.json();
     } catch (e) {
-      return new Response(JSON.stringify({ error: 'Falha ao chamar Gemini', message: e.message }), {
+      return new Response(JSON.stringify({ error: 'Falha de rede/Worker', details: e.message }), {
         status: 502, headers: { ...cors, 'Content-Type': 'application/json' },
       });
     }
