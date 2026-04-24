@@ -30,11 +30,13 @@
 
 /* Global resets and Material Symbols */
 body {
-  background-color: #f8fafc; /* blue-50 approximation */
-  color: #1e293b; /* slate-800 */
+  background-color: #f8fafc;
+  color: #1e293b;
   font-family: 'Plus Jakarta Sans', sans-serif;
   min-height: 100vh;
   margin: 0;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
   -webkit-tap-highlight-color: transparent;
 }
 

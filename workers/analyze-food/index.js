@@ -89,19 +89,17 @@ export default {
     // ── Chamada ao Gemini Vision ──────────────────────────────────────────────
     // A imagem (imageBase64) fica APENAS aqui na memória durante este request.
     // Não é gravada em nenhum lugar. Ao terminar a função, a memória é liberada.
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${env.GEMINI_API_KEY}`;
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${env.GEMINI_API_KEY}`;
 
     const geminiPayload = {
       contents: [{
         parts: [
-          { text: SYSTEM_PROMPT },
+          { text: "Analise a imagem da comida. Retorne APENAS um JSON com estas chaves exatas: calorias_totais (int), peso_estimado_g (int), carboidratos_g (float), proteinas_g (float), gordura_g (float), acucares_g (float), fibras_g (float). Não use markdown, não explique nada." },
           { inline_data: { mime_type: mimeType, data: imageBase64 } },
         ],
       }],
       generationConfig: {
         temperature: 0.1,
-        topP: 0.8,
-        maxOutputTokens: 256,
         responseMimeType: 'application/json',
       },
     };
