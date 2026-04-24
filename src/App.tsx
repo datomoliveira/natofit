@@ -65,7 +65,7 @@ function App() {
         </button>
       </header>
 
-      <main className="pt-20 pb-24 overflow-y-auto min-h-screen">
+      <main className="pt-20 pb-32">
         {/* ── Cálculo Calórico (Fase 2 MealCapture) ── */}
         {view === 'tracker' && (
           <div className="py-6">
