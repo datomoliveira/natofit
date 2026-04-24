@@ -1,0 +1,10 @@
+name = "natofit-analyze-bioimp"
+main = "index.js"
+compatibility_date = "2024-01-01"
+
+# Quando deployar, a URL será:
+# https://natofit-analyze-bioimp.<seu-subdominio>.workers.dev
+#
+# Para configurar o secret da chave Gemini, rode no terminal:
+# npx wrangler secret put GEMINI_API_KEY
+# (dentro da pasta workers/analyze-bioimp)
