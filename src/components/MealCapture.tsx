@@ -13,6 +13,7 @@ interface MealResult {
   acucares_g: number;
   fibras_g: number;
   error?: string;
+  details?: string;
 }
 
 interface MealCaptureProps {
