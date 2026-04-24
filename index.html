@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -65,9 +66,24 @@
         overflow-x: hidden;
         overscroll-behavior: none;
         -webkit-tap-highlight-color: transparent;
+        /* Suporte para notch/entalhe */
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+        height: 100%;
+        width: 100%;
       }
       ::-webkit-scrollbar {
         display: none;
+      }
+      /* Prevenir seleção de texto para parecer app */
+      * {
+        user-select: none;
+        -webkit-user-select: none;
+        -webkit-touch-callout: none;
+      }
+      input, textarea {
+        user-select: text;
+        -webkit-user-select: text;
       }
     </style>
   </head>
