@@ -34,12 +34,14 @@ Se não houver comida visível na imagem, retorne:
 {"error": "Nenhum alimento identificado na imagem"}`;
 
 function corsHeaders(origin) {
+  // Se for .pages.dev ou localhost ou o domínio nativo
   const isAllowed = !origin || 
-                   ALLOWED_ORIGINS.some(o => origin.startsWith(o)) || 
-                   origin.endsWith('.pages.dev');
+                   origin.endsWith('.pages.dev') || 
+                   origin.includes('localhost') ||
+                   origin === 'https://natofit.pages.dev';
   
   return {
-    'Access-Control-Allow-Origin': isAllowed ? origin : ALLOWED_ORIGINS[0],
+    'Access-Control-Allow-Origin': isAllowed ? (origin || '*') : '*',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Max-Age': '86400',
