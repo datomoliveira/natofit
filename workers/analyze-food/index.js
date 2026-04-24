@@ -70,20 +70,21 @@ export default {
       });
     }
 
-    let imageBase64, mimeType;
+    let imageBase64, mimeType, contextText;
 
     try {
       const body = await request.json();
       imageBase64 = body.image;
       mimeType = body.mimeType || 'image/jpeg';
+      contextText = body.contextText;
     } catch {
       return new Response(JSON.stringify({ error: 'Body JSON inválido' }), {
         status: 400, headers: { ...cors, 'Content-Type': 'application/json' },
       });
     }
 
-    if (!imageBase64) {
-      return new Response(JSON.stringify({ error: 'Campo "image" (base64) é obrigatório' }), {
+    if (!imageBase64 && !contextText) {
+      return new Response(JSON.stringify({ error: 'Forneça uma imagem ou um texto descrevendo a refeição.' }), {
         status: 400, headers: { ...cors, 'Content-Type': 'application/json' },
       });
     }
@@ -99,16 +100,22 @@ export default {
     // Não é gravada em nenhum lugar. Ao terminar a função, a memória é liberada.
     const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+    const parts = [];
+    if (imageBase64 && contextText) {
+      parts.push({ text: `Analise a imagem da refeição e considere também as seguintes informações do usuário: "${contextText}". Retorne o JSON.` });
+      parts.push({ inline_data: { mime_type: mimeType, data: imageBase64 } });
+    } else if (imageBase64) {
+      parts.push({ text: "Analise a imagem e retorne o JSON conforme instruído." });
+      parts.push({ inline_data: { mime_type: mimeType, data: imageBase64 } });
+    } else if (contextText) {
+      parts.push({ text: `O usuário descreveu a seguinte refeição: "${contextText}". Analise o texto e retorne o JSON com as estimativas nutricionais aproximadas.` });
+    }
+
     const geminiPayload = {
       system_instruction: {
         parts: [{ text: SYSTEM_PROMPT }]
       },
-      contents: [{
-        parts: [
-          { text: "Analise a imagem e retorne o JSON conforme instruído." },
-          { inline_data: { mime_type: mimeType, data: imageBase64 } },
-        ],
-      }],
+      contents: [{ parts: parts }],
       generationConfig: {
         temperature: 0.1,
         responseMimeType: 'application/json',

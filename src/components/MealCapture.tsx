@@ -29,8 +29,38 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
   const [result, setResult] = useState<MealResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [contextText, setContextText] = useState('');
+  const [isRecording, setIsRecording] = useState(false);
+  
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
+
+  const startRecording = () => {
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      setError('Reconhecimento de voz não é suportado pelo seu navegador.');
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'pt-BR';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.onstart = () => setIsRecording(true);
+    recognition.onend = () => setIsRecording(false);
+    recognition.onerror = (event: any) => {
+      console.error(event.error);
+      setIsRecording(false);
+    };
+
+    recognition.onresult = (event: any) => {
+      const transcript = event.results[0][0].transcript;
+      setContextText((prev) => (prev ? prev + ' ' + transcript : transcript));
+    };
+
+    recognition.start();
+  };
 
   const handleFile = useCallback((file: File) => {
     const reader = new FileReader();
@@ -44,18 +74,25 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
   }, []);
 
   const handleAnalyze = async () => {
-    if (!imageDataUrl) return;
+    if (!imageDataUrl && !contextText.trim()) {
+      setError("Forneça uma foto ou descreva a refeição.");
+      return;
+    }
     setStep('analyzing');
     setError(null);
 
-    const base64 = imageDataUrl.split(',')[1];
-    const mimeType = imageDataUrl.split(';')[0].split(':')[1];
+    const base64 = imageDataUrl ? imageDataUrl.split(',')[1] : null;
+    const mimeType = imageDataUrl ? imageDataUrl.split(';')[0].split(':')[1] : null;
 
     try {
-      const payload = {
-        image: base64,
-        mimeType: mimeType
-      };
+      const payload: any = {};
+      if (base64) {
+        payload.image = base64;
+        payload.mimeType = mimeType;
+      }
+      if (contextText.trim()) {
+        payload.contextText = contextText.trim();
+      }
 
       const resp = await fetch(WORKER_URL, {
         method: 'POST',
@@ -112,6 +149,8 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
     setImageDataUrl(null);
     setResult(null);
     setError(null);
+    setContextText('');
+    setIsRecording(false);
   };
 
   // ── Variantes de UI por etapa ─────────────────────────────────────────────
@@ -168,6 +207,40 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
             </button>
           </div>
 
+          {/* Campo de Texto/Áudio sem imagem */}
+          <div className="w-full mt-2">
+             <label className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 block text-left">
+               Ou descreva por texto / áudio
+             </label>
+             <div className="relative mb-4">
+               <textarea 
+                 value={contextText}
+                 onChange={e => setContextText(e.target.value)}
+                 placeholder="Ex: Comi meia porção de arroz com feijão..."
+                 className="w-full bg-blue-50/50 backdrop-blur-sm rounded-2xl p-4 pr-14 text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder:text-slate-400 resize-none h-24"
+               />
+               <button 
+                 onClick={isRecording ? undefined : startRecording}
+                 className={`absolute right-3 bottom-3 w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-md ${isRecording ? 'bg-red-500 text-white animate-pulse' : 'bg-blue-100 text-blue-500 hover:bg-blue-200'}`}
+               >
+                 <span className="material-symbols-outlined">{isRecording ? 'mic' : 'mic_none'}</span>
+               </button>
+             </div>
+             
+             {contextText.trim() && (
+               <button
+                 onClick={handleAnalyze}
+                 className="w-full py-4 rounded-full font-black text-white text-lg flex items-center justify-center gap-2 transition-all active:scale-95 animate-fade-in"
+                 style={{
+                   background: 'linear-gradient(145deg, #22c55e, #16a34a)',
+                   boxShadow: '6px 6px 14px rgba(22,163,74,0.4), inset 0 2px 4px rgba(255,255,255,0.25)',
+                 }}
+               >
+                 <span className="material-symbols-outlined">biotech</span>Analisar Texto
+               </button>
+             )}
+          </div>
+
           <input ref={cameraInputRef} type="file" accept="image/*" capture="environment" className="hidden"
             onChange={(e) => { const f = e.target.files?.[0]; if (f) handleFile(f); e.target.value = ''; }} />
           <input ref={fileInputRef} type="file" accept="image/*" className="hidden"
@@ -187,6 +260,29 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
             >
               <span className="material-symbols-outlined text-slate-600 text-lg">arrow_back</span>
             </button>
+          </div>
+
+          {/* Detalhes Adicionais */}
+          <div className="px-6 pt-6">
+             <label className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 block text-left">
+               Detalhes adicionais (Opcional)
+             </label>
+             <div className="relative">
+               <textarea 
+                 value={contextText}
+                 onChange={e => setContextText(e.target.value)}
+                 placeholder="Ex: O prato é fundo, tem uns 300g..."
+                 disabled={step === 'analyzing'}
+                 className="w-full bg-blue-50/50 backdrop-blur-sm rounded-2xl p-4 pr-14 text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder:text-slate-400 resize-none h-20 disabled:opacity-60"
+               />
+               <button 
+                 onClick={isRecording ? undefined : startRecording}
+                 disabled={step === 'analyzing'}
+                 className={`absolute right-3 bottom-3 w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-md disabled:opacity-60 ${isRecording ? 'bg-red-500 text-white animate-pulse' : 'bg-blue-100 text-blue-500 hover:bg-blue-200'}`}
+               >
+                 <span className="material-symbols-outlined">{isRecording ? 'mic' : 'mic_none'}</span>
+               </button>
+             </div>
           </div>
 
           {/* Erro */}
