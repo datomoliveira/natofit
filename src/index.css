@@ -6,26 +6,35 @@
   --color-primary-container: #93c5fd;
 }
 
-/* Custom Claymorphic Styles - Outside @layer for better compatibility */
+/* Custom Claymorphic Styles - Agressive 3D */
 .clay-effect {
-  box-shadow: 8px 8px 16px rgba(0,0,0,0.05), inset -4px -4px 8px rgba(0,0,0,0.05), inset 4px 4px 8px rgba(255,255,255,0.8);
-  background-color: #eff6ff;
-  border: none;
+  box-shadow: 
+    16px 16px 32px rgba(0,0,0,0.08), 
+    -12px -12px 24px rgba(255,255,255,1), 
+    inset 8px 8px 16px rgba(255,255,255,0.9), 
+    inset -8px -8px 16px rgba(0,0,0,0.04);
+  background-color: #f1f5f9;
+  border: 3px solid rgba(255,255,255,0.7);
 }
 
 .clay-button {
-  box-shadow: 4px 4px 8px rgba(0,0,0,0.05), inset -2px -2px 4px rgba(0,0,0,0.05), inset 2px 2px 4px rgba(255,255,255,0.8);
-  background-color: #eff6ff;
-  border: none;
-  transition: all 0.2s ease-in-out;
+  box-shadow: 
+    8px 8px 16px rgba(0,0,0,0.08), 
+    -6px -6px 12px rgba(255,255,255,1), 
+    inset 4px 4px 8px rgba(255,255,255,0.9), 
+    inset -4px -4px 8px rgba(0,0,0,0.05);
+  background-color: #f1f5f9;
+  border: 2px solid rgba(255,255,255,0.7);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .clay-button:active {
-  transform: scale(0.95);
-}
-
-.clay-button:hover {
-  filter: brightness(0.95);
+  transform: scale(0.92) translateY(2px);
+  box-shadow: 
+    2px 2px 4px rgba(0,0,0,0.04), 
+    -2px -2px 4px rgba(255,255,255,0.8), 
+    inset 8px 8px 16px rgba(0,0,0,0.1), 
+    inset -8px -8px 16px rgba(255,255,255,0.9);
 }
 
 html, body, #root {

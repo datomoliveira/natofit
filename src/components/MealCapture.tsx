@@ -48,18 +48,28 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
         onUpdate: () => setAnimatedCalories(counter.val)
       });
 
-      // Animação com os exatos parâmetros (x, scale, skew e rotate)
-      // Revertidos do estado bagunçado para o estado perfeito!
-      animate('.macro-card', {
-        opacity: [0, 1],
-        x: ['15rem', 0],
-        scale: [1.25, 1],
-        skew: [-45, 0],
-        rotate: ['1turn', '0turn'],
-        duration: 1200,
-        delay: utils.stagger(100, { start: 300 }),
-        easing: 'easeOutElastic(1, .6)'
-      });
+      // Garantir que a DOM foi renderizada antes de capturar as classes
+      setTimeout(() => {
+        // Animação do texto de descrição
+        animate('.result-text', {
+          opacity: [0, 1],
+          translateY: [20, 0],
+          duration: 1000,
+          easing: 'easeOutCubic'
+        });
+
+        // Animação com os exatos parâmetros (x, scale, skew e rotate)
+        animate('.macro-card', {
+          opacity: [0, 1],
+          x: ['15rem', 0],
+          scale: [1.25, 1],
+          skew: [-45, 0],
+          rotate: ['1turn', '0turn'],
+          duration: 1200,
+          delay: utils.stagger(150, { start: 200 }),
+          easing: 'easeOutElastic(1, .6)'
+        });
+      }, 50);
 
     } else if (step === 'idle') {
       setAnimatedCalories(0);
@@ -202,10 +212,7 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
 
       {/* ── Etapa: IDLE ── */}
       {step === 'idle' && (
-        <div
-          className="clay-effect rounded-[3rem] p-10 flex flex-col items-center gap-6 text-center"
-          style={{ boxShadow: '8px 8px 20px rgba(163,177,198,0.5), -6px -6px 16px rgba(255,255,255,0.9), inset 0 1px 3px rgba(255,255,255,0.8)' }}
-        >
+        <div className="clay-effect rounded-[3rem] p-10 flex flex-col items-center gap-6 text-center">
           <div
             className="w-40 h-40 rounded-full flex items-center justify-center bg-blue-50"
             style={{ boxShadow: 'inset 4px 4px 12px rgba(163,177,198,0.4), inset -4px -4px 10px rgba(255,255,255,0.9)' }}
@@ -285,8 +292,7 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
 
       {/* ── Etapa: PREVIEW ── */}
       {(step === 'preview' || step === 'analyzing') && imageDataUrl && (
-        <div className="clay-effect rounded-[3rem] overflow-hidden"
-          style={{ boxShadow: '8px 8px 20px rgba(163,177,198,0.5), -6px -6px 16px rgba(255,255,255,0.9)' }}>
+        <div className="clay-effect rounded-[3rem] overflow-hidden">
           {/* Imagem */}
           <div className="relative">
             <img src={imageDataUrl} alt="Prato capturado" className="w-full h-72 object-cover" />
@@ -357,22 +363,20 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
       {step === 'result' && result && (
         <div className="animate-slide-up space-y-5">
           {/* Card de resultado principal */}
-          <div className="clay-effect rounded-[3rem] overflow-hidden"
-            style={{ boxShadow: '8px 8px 20px rgba(163,177,198,0.5), -6px -6px 16px rgba(255,255,255,0.9)' }}>
+          <div className="clay-effect rounded-[3rem] overflow-hidden">
             {imageDataUrl && (
               <img src={imageDataUrl} alt="Prato" className="w-full h-48 object-cover opacity-80" />
             )}
             <div className="p-8">
               <p className="text-xs font-black text-blue-500 uppercase tracking-widest mb-2">Resultado da Análise</p>
               {result.descricao_itens && (
-                <p className="text-slate-600 font-bold text-lg mb-4 leading-tight">
+                <p className="result-text text-slate-600 font-bold text-lg mb-4 leading-tight opacity-0">
                   {result.descricao_itens}
                 </p>
               )}
 
               {/* Calorias em destaque */}
-              <div className="clay-effect rounded-3xl p-6 text-center mb-5"
-                style={{ boxShadow: 'inset 4px 4px 12px rgba(163,177,198,0.3), inset -4px -4px 10px rgba(255,255,255,0.8)' }}>
+              <div className="clay-effect rounded-3xl p-6 text-center mb-5">
                 <span className="text-6xl font-black text-blue-500 leading-none">{animatedCalories}</span>
                 <span className="text-slate-400 font-bold text-lg block mt-1">kcal</span>
               </div>
@@ -393,8 +397,7 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
                   { icon: 'icecream',    color: 'text-pink-400',  label: 'Açúcares', value: result.acucares_g },
                   { icon: 'grass',       color: 'text-green-500', label: 'Fibras',   value: result.fibras_g },
                 ].map(m => (
-                  <div key={m.label} className="macro-card opacity-0 clay-effect rounded-3xl p-4 text-center"
-                    style={{ boxShadow: 'inset 3px 3px 8px rgba(163,177,198,0.3), inset -3px -3px 8px rgba(255,255,255,0.8)' }}>
+                  <div key={m.label} className="macro-card opacity-0 clay-effect rounded-3xl p-4 text-center">
                     <span className={`material-symbols-outlined ${m.color} text-xl mb-1 block`}>{m.icon}</span>
                     <p className="text-lg font-black text-slate-700">{m.value}g</p>
                     <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide leading-tight">{m.label}</p>
@@ -428,8 +431,7 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
 
       {/* ── Etapa: SAVED ── */}
       {step === 'saved' && result && (
-        <div className="clay-effect rounded-[3rem] p-10 text-center animate-slide-up"
-          style={{ boxShadow: '8px 8px 20px rgba(163,177,198,0.5), -6px -6px 16px rgba(255,255,255,0.9)' }}>
+        <div className="clay-effect rounded-[3rem] p-10 text-center animate-slide-up">
           <span className="material-symbols-outlined text-green-500 text-6xl mb-4 block">check_circle</span>
           <h2 className="text-3xl font-black text-slate-800 mb-2">Refeição Salva!</h2>
           <p className="text-slate-500 font-semibold mb-2">
