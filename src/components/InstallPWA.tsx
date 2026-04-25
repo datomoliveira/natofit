@@ -35,11 +35,11 @@ const InstallPWA: React.FC = () => {
         style={{ boxShadow: '10px 10px 25px rgba(163,177,198,0.6), -8px -8px 20px rgba(255,255,255,0.9), inset 0 2px 4px rgba(255,255,255,0.5)' }}
       >
         <div className="w-14 h-14 rounded-2xl bg-blue-500 flex items-center justify-center flex-shrink-0 shadow-lg">
-          <img src="/icon-192.png" alt="Natofit" className="w-10 h-10 object-contain" />
+          <img src="/icon-192.png" alt="NatoFit" className="w-10 h-10 object-contain" />
         </div>
         
         <div className="flex-1">
-          <h4 className="text-slate-800 font-black text-sm leading-tight">Instalar Natofit</h4>
+          <h4 className="text-slate-800 font-black text-sm leading-tight">Instalar NatoFit</h4>
           <p className="text-slate-500 text-[10px] font-bold uppercase tracking-wider">Acesso rápido na tela inicial</p>
         </div>
 

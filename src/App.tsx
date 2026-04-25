@@ -36,13 +36,12 @@ function App() {
         style={{ boxShadow: '0 4px 20px rgba(163,177,198,0.2)' }}>
         <button onClick={() => setView('landing')} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
           <span className="material-symbols-outlined text-blue-500 text-2xl">bolt</span>
-          <span className="text-2xl font-black tracking-wide text-blue-500">Natofit</span>
+          <span className="text-2xl font-black tracking-wide text-blue-500">NatoFit</span>
         </button>
 
         <nav className="hidden md:flex gap-2 items-center">
           {[
             { label: 'Cálculo Calórico', v: 'tracker' as View, icon: 'add_a_photo' },
-            { label: 'Painel', v: 'dashboard' as View, icon: 'monitoring' },
             { label: 'Criar Plano', v: 'create-plan' as View, icon: 'rocket_launch' },
           ].map(item => (
             <button key={item.v}
@@ -107,10 +106,10 @@ function App() {
                 <div className="max-w-3xl p-10 rounded-[3rem] bg-blue-50/80 backdrop-blur-md"
                   style={{ boxShadow: '12px 12px 28px rgba(163,177,198,0.45), -8px -8px 20px rgba(255,255,255,0.85)' }}>
                   <h1 className="text-5xl md:text-7xl font-black leading-tight tracking-tighter mb-6 text-slate-800">
-                    Controle <br/><span className="text-blue-500">Calórico</span><br/>com IA
+                    Controle <br/><span className="text-blue-500">Calórico</span><br/>Inteligente
                   </h1>
                   <p className="text-lg text-slate-600 max-w-xl mb-10 border-l-4 border-blue-300 pl-5 py-2 font-semibold leading-relaxed">
-                    Fotografe qualquer refeição. A IA identifica calorias, carboidratos e proteínas em segundos.
+                    Fotografe qualquer refeição. Identifique calorias, carboidratos e proteínas em segundos.
                   </p>
                   <div className="flex flex-wrap gap-4">
                     <button onClick={() => setView('tracker')}
@@ -135,9 +134,8 @@ function App() {
               <div className="container mx-auto px-8">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {[
-                    { icon: 'add_a_photo', title: 'Foto → Calorias', desc: 'IA Gemini Vision analisa qualquer prato e retorna calorias + macros instantaneamente.', v: 'tracker' as View },
-                    { icon: 'monitoring', title: 'Painel em Tempo Real', desc: 'Acompanhe consumo vs meta calórica diária com histórico de todas as refeições.', v: 'dashboard' as View },
-                    { icon: 'biotech', title: 'Laudo de Bioimpedância', desc: 'Envie o laudo e a IA extrai gordura, massa magra e TMB automaticamente.', v: 'create-plan' as View },
+                    { icon: 'add_a_photo', title: 'Foto → Calorias', desc: 'Tecnologia de visão analisa qualquer prato e retorna calorias + macros instantaneamente.', v: 'tracker' as View },
+                    { icon: 'biotech', title: 'Laudo de Bioimpedância', desc: 'Envie o laudo e extraia gordura, massa magra e TMB automaticamente.', v: 'create-plan' as View },
                   ].map(f => (
                     <div key={f.v}
                       onClick={() => f.v === 'dashboard' && !userData ? setView('create-plan') : setView(f.v)}
@@ -189,7 +187,6 @@ function App() {
           { icon: 'home', label: 'Início', v: 'landing' as View },
           { icon: 'add_a_photo', label: 'Calorias', v: 'tracker' as View },
           { icon: 'rocket_launch', label: 'Plano', v: 'create-plan' as View },
-          { icon: 'monitoring', label: 'Painel', v: 'dashboard' as View },
         ].map(item => (
           <button key={item.v}
             onClick={() => item.v === 'dashboard' && !userData ? setView('create-plan') : setView(item.v)}

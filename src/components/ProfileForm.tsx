@@ -196,7 +196,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onComplete }) => {
             <span className="material-symbols-outlined text-blue-400 text-3xl">biotech</span>
             <div className="flex-1">
               <p className="font-black text-slate-700">Laudo de Bioimpedância</p>
-              <p className="text-slate-400 font-semibold text-xs">Opcional • A IA extrai seus dados automaticamente</p>
+              <p className="text-slate-400 font-semibold text-xs">Opcional • Extração automática dos dados do laudo</p>
             </div>
             <span className={`material-symbols-outlined text-slate-400 transition-transform ${showBioimSection ? 'rotate-180' : ''}`}>
               expand_more
@@ -300,7 +300,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onComplete }) => {
           {loading ? (
             <><span className="material-symbols-outlined animate-spin">refresh</span>Processando...</>
           ) : (
-            <><span className="material-symbols-outlined">rocket_launch</span>Gerar Protocolo de Elite</>
+            <><span className="material-symbols-outlined">rocket_launch</span>Gerar Protocolo</>
           )}
         </button>
       </form>

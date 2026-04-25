@@ -56,7 +56,7 @@ export default {
 
     // Se for apenas uma visita no navegador (GET), retorna um OK de teste
     if (request.method === 'GET') {
-      return new Response('Natofit IA Worker: ONLINE 🚀', { headers: cors });
+      return new Response('NatoFit IA Worker: ONLINE 🚀', { headers: cors });
     }
 
     // Preflight CORS

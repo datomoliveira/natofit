@@ -193,7 +193,7 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
       <div className="text-center mb-8">
         <span className="material-symbols-outlined text-blue-400 text-5xl mb-3 block">add_a_photo</span>
         <h1 className="text-4xl font-black text-slate-800 mb-2">Cálculo Calórico</h1>
-        <p className="text-slate-500 font-semibold">Fotografe seu prato e a IA calcula as calorias</p>
+        <p className="text-slate-500 font-semibold">Fotografe seu prato e calcule as calorias instantaneamente</p>
       </div>
 
       {/* ── Etapa: IDLE ── */}

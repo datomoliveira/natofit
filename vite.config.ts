@@ -10,11 +10,11 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
+      includeAssets: ['favicon.png', 'apple-touch-icon.png', 'mask-icon.svg'],
       manifest: {
-        name: 'Natofit - IA Nutricional',
-        short_name: 'Natofit',
-        description: 'Controle calórico inteligente com IA e Claymorphism',
+        name: 'NatoFit - Nutrição de Elite',
+        short_name: 'NatoFit',
+        description: 'Controle calórico e nutricional inteligente com Claymorphism',
         theme_color: '#3b82f6',
         background_color: '#f8faff',
         display: 'standalone',
