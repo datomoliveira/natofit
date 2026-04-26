@@ -66,6 +66,23 @@ export default {
       return new Response(null, { status: 204, headers: cors });
     }
 
+    // Proxy Ultra-Leve para o SoulTrace (CPU Zero)
+    if (request.method === 'POST' && new URL(request.url).pathname.endsWith('/soultrace')) {
+      try {
+        const soulTraceResp = await fetch('https://soultrace.app/api/agent', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: request.body // Repassa o stream diretamente sem carregar na memória/CPU
+        });
+        return new Response(soulTraceResp.body, { 
+          status: soulTraceResp.status, 
+          headers: { ...cors, 'Content-Type': 'application/json' } 
+        });
+      } catch (err) {
+        return new Response(JSON.stringify({ error: 'Erro no proxy' }), { status: 500, headers: cors });
+      }
+    }
+
     if (request.method !== 'POST') {
       return new Response(JSON.stringify({ error: 'Method not allowed' }), {
         status: 405, headers: { ...cors, 'Content-Type': 'application/json' },
