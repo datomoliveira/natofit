@@ -5,8 +5,9 @@ import MealCapture from './components/MealCapture';
 import InstallPWA from './components/InstallPWA';
 import IntroScreen from './components/IntroScreen';
 import FoodConveyor from './components/FoodConveyor';
+import Login from './components/Login';
 
-type View = 'landing' | 'tracker' | 'create-plan' | 'dashboard';
+type View = 'landing' | 'tracker' | 'create-plan' | 'dashboard' | 'login';
 
 function App() {
   const [view, setView] = useState<View>('landing');
@@ -32,6 +33,13 @@ function App() {
     setDashRefreshKey(k => k + 1);
   };
 
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    localStorage.removeItem('natofit_user');
+    setUserData(null);
+    setView('landing');
+  };
+
   return (
     <div className="bg-[#f0fdf4] text-slate-800 font-sans w-full relative min-h-screen">
       {/* Background Animated Foods */}
@@ -49,6 +57,20 @@ function App() {
           <span className="material-symbols-outlined text-emerald-600 text-2xl">bolt</span>
           <span className="text-2xl font-black tracking-wide text-emerald-600">NatoFit</span>
         </button>
+
+        <div className="flex-1 ml-6">
+          {userData ? (
+            <button onClick={handleLogout} className="text-slate-400 hover:text-red-500 font-black text-[10px] uppercase tracking-widest flex items-center gap-1 transition-colors">
+              <span className="material-symbols-outlined text-sm">logout</span>
+              Sair
+            </button>
+          ) : (
+            <button onClick={() => setView('login')} className="text-slate-400 hover:text-emerald-600 font-black text-[10px] uppercase tracking-widest flex items-center gap-1 transition-colors">
+              <span className="material-symbols-outlined text-sm">person</span>
+              Login
+            </button>
+          )}
+        </div>
 
         <nav className="hidden md:flex gap-2 items-center">
           {[
@@ -95,6 +117,14 @@ function App() {
           <div className="py-8">
             <Dashboard userData={userData} refreshKey={dashRefreshKey} />
           </div>
+        )}
+
+        {/* ── Login ── */}
+        {view === 'login' && (
+          <Login 
+            onLoginSuccess={handleComplete} 
+            onBack={() => setView('landing')} 
+          />
         )}
 
         {/* ── Landing Page ── */}
