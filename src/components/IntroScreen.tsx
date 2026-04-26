@@ -58,14 +58,14 @@ const IntroScreen: React.FC<IntroScreenProps> = ({ onComplete }) => {
 
           {/* Progress Center */}
           <div 
-            className={`mx-8 text-2xl md:text-5xl text-blue-500 font-black tracking-widest transition-all duration-700 ${phase !== 'loading' ? 'opacity-0 w-0 mx-0 overflow-hidden scale-0' : 'opacity-100 scale-100'}`}
+            className={`mx-8 text-2xl md:text-5xl text-emerald-500 font-black tracking-widest transition-all duration-700 ${phase !== 'loading' ? 'opacity-0 w-0 mx-0 overflow-hidden scale-0' : 'opacity-100 scale-100'}`}
           >
             {progress}%
           </div>
 
           {/* Right Text */}
           <span 
-            className="text-blue-500 transition-transform duration-300 ease-out"
+            className="text-emerald-500 transition-transform duration-300 ease-out"
             style={{ 
               transform: phase === 'loading' ? `translateX(${(100 - progress) * 0.4}vw)` : 'translateX(0)' 
             }}

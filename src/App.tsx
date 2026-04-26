@@ -47,7 +47,7 @@ function App() {
           style={{ boxShadow: '0 4px 20px rgba(6,95,70,0.05)' }}>
           <button onClick={() => setView('landing')} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
           <span className="material-symbols-outlined text-emerald-600 text-2xl">bolt</span>
-          <span className="text-2xl font-black tracking-wide text-blue-500">NatoFit</span>
+          <span className="text-2xl font-black tracking-wide text-emerald-600">NatoFit</span>
         </button>
 
         <nav className="hidden md:flex gap-2 items-center">

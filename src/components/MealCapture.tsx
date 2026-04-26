@@ -147,6 +147,10 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
         const errorMsg = typeof data.error === 'object' ? JSON.stringify(data.error) : data.error;
         setError(`Ops! ${errorMsg}`);
         setStep('preview');
+      } else if (data.error && data.item_detectado) {
+        setResult(null);
+        setError(`A IA identificou um(a) ${data.item_detectado}, mas isso não parece ser um alimento. Por favor, fotografe uma refeição.`);
+        setStep('preview');
       } else {
         setResult(data);
         setStep('result');
@@ -222,19 +226,19 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
             className="w-40 h-40 rounded-full flex items-center justify-center bg-blue-50"
             style={{ boxShadow: 'inset 4px 4px 12px rgba(163,177,198,0.4), inset -4px -4px 10px rgba(255,255,255,0.9)' }}
           >
-            <span className="material-symbols-outlined text-blue-300 text-7xl">restaurant</span>
+            <span className="material-symbols-outlined text-emerald-300 text-7xl">restaurant</span>
           </div>
           <p className="text-slate-400 font-bold text-sm max-w-xs">
             Tire uma foto do prato ou faça upload de uma imagem já salva
           </p>
           <div className="flex gap-4 w-full">
-            {/* Botão câmera — 3D clay azul */}
+            {/* Botão câmera — 3D clay verde */}
             <button
               onClick={() => cameraInputRef.current?.click()}
               className="flex-1 py-5 rounded-3xl font-black text-white flex flex-col items-center gap-2 transition-all active:scale-95"
               style={{
-                background: 'linear-gradient(145deg, #3b82f6, #2563eb)',
-                boxShadow: '6px 6px 14px rgba(37,99,235,0.4), -3px -3px 8px rgba(147,197,253,0.5), inset 0 2px 4px rgba(255,255,255,0.25), inset 0 -2px 4px rgba(30,64,175,0.4)',
+                background: 'linear-gradient(145deg, #059669, #047857)',
+                boxShadow: '6px 6px 14px rgba(4,120,87,0.4), -3px -3px 8px rgba(110,231,183,0.5), inset 0 2px 4px rgba(255,255,255,0.25), inset 0 -2px 4px rgba(6,78,59,0.4)',
               }}
             >
               <span className="material-symbols-outlined text-3xl">camera_alt</span>
