@@ -5,6 +5,16 @@
       "source": "anthropics/skills",
       "sourceType": "github",
       "computedHash": "516bd2154eb843a8240e43d5b285229129853114ad7075a5e141e1c08e408c84"
+    },
+    "remotion-best-practices": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "computedHash": "a6a79c92a109339759d7b465f2d45fe11ce955e307a3e2c03fbcf4f9b624b77a"
+    },
+    "soultrace": {
+      "source": "soultrace-ai/soultrace-skill",
+      "sourceType": "github",
+      "computedHash": "653d75b761d9daad007a37350d7b7c67e6807be28e33a8cc26eac2997dbe7c2a"
     }
   }
 }

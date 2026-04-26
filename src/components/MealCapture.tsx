@@ -208,9 +208,9 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
             real do seu prato.
           </h1>
         </div>
-        <div className="lg:max-w-xs lg:pb-2">
-          <p className="text-slate-600 font-medium text-[10px] md:text-xs uppercase tracking-widest leading-loose">
-            FOTOGRAFE SEU PRATO E DEIXE A TECNOLOGIA CALCULAR AS CALORIAS E MACRONUTRIENTES INSTANTANEAMENTE COM PRECISÃO EXTREMA.
+        <div className="lg:max-w-xs lg:pb-2 flex flex-col gap-4">
+          <p className="text-slate-600 font-medium text-[10px] md:text-xs uppercase tracking-widest leading-loose text-balance">
+            FOTOGRAFE QUALQUER REFEIÇÃO. IDENTIFIQUE CALORIAS, CARBOIDRATOS, PROTEÍNAS E OUTROS, EM SEGUNDOS.
           </p>
         </div>
       </div>
