@@ -388,8 +388,8 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
                 </p>
               )}
 
-              {/* Macros — grid 3 cols */}
-              <div className="grid grid-cols-3 gap-3">
+              {/* Macros — flex centralizado */}
+              <div className="flex flex-wrap justify-center gap-3">
                 {[
                   { icon: 'grain',       color: 'text-amber-400', label: 'Carbs',    value: result.carboidratos_g },
                   { icon: 'exercise',    color: 'text-red-400',   label: 'Proteínas',value: result.proteinas_g },
@@ -397,7 +397,7 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
                   { icon: 'icecream',    color: 'text-pink-400',  label: 'Açúcares', value: result.acucares_g },
                   { icon: 'grass',       color: 'text-green-500', label: 'Fibras',   value: result.fibras_g },
                 ].map(m => (
-                  <div key={m.label} className="macro-card opacity-0 clay-effect rounded-3xl p-4 text-center">
+                  <div key={m.label} className="macro-card opacity-0 clay-effect rounded-3xl p-4 text-center w-[30%] min-w-[90px] flex flex-col items-center justify-center">
                     <span className={`material-symbols-outlined ${m.color} text-xl mb-1 block`}>{m.icon}</span>
                     <p className="text-lg font-black text-slate-700">{m.value}g</p>
                     <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide leading-tight">{m.label}</p>
