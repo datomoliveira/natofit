@@ -13,26 +13,23 @@ const FoodConveyor: React.FC = () => {
   return (
     <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden bg-emerald-50/30">
       
-      {/* Camada de Desfoque (Glassmorphism) para manter legibilidade do app */}
       <div className="absolute inset-0 z-10 backdrop-blur-[8px] bg-white/40 mask-radial-fade"></div>
 
-      {/* Container Principal que vai girar em um ângulo para efeito dinâmico */}
       <div className="absolute inset-0 transform -rotate-[15deg] scale-150 flex flex-col justify-center gap-16 opacity-60">
         
-        {/* Esteira 1: Direita para Esquerda */}
-        <div className="flex w-[200vw] animate-conveyor-left">
-          {/* Duplicamos a lista várias vezes para preencher a tela e garantir o loop infinito */}
-          {[...dishes, ...dishes, ...dishes, ...dishes].map((dish, i) => (
+        {/* Esteira 1: Direita para Esquerda (Muito lenta e fluida) */}
+        <div className="flex w-max animate-conveyor-left">
+          {/* Para um loop perfeito, precisamos de 2 grupos exatos lado a lado */}
+          {[...dishes, ...dishes].map((dish, i) => (
             <div key={`row1-${i}`} className="flex-shrink-0 w-48 h-48 mx-8 rounded-full shadow-2xl overflow-hidden bg-white/50 border-4 border-white/40">
               <img src={dish} alt="Healthy Dish" className="w-full h-full object-cover animate-spin-slow" />
             </div>
           ))}
         </div>
 
-        {/* Esteira 2: Esquerda para Direita */}
-        <div className="flex w-[200vw] animate-conveyor-right -ml-[50vw]">
-          {/* Ordem invertida para variedade */}
-          {[...dishes, ...dishes, ...dishes, ...dishes].reverse().map((dish, i) => (
+        {/* Esteira 2: Esquerda para Direita (Ainda mais lenta) */}
+        <div className="flex w-max animate-conveyor-right -ml-[50vw]">
+          {[...dishes, ...dishes].reverse().map((dish, i) => (
             <div key={`row2-${i}`} className="flex-shrink-0 w-64 h-64 mx-12 rounded-full shadow-2xl overflow-hidden bg-white/50 border-4 border-white/40">
               <img src={dish} alt="Healthy Dish" className="w-full h-full object-cover animate-spin-reverse-slow" />
             </div>
@@ -42,6 +39,7 @@ const FoodConveyor: React.FC = () => {
       </div>
 
       <style>{`
+        /* Animações com duração super estendida para lentidão fluida */
         @keyframes conveyor-left {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
@@ -59,12 +57,14 @@ const FoodConveyor: React.FC = () => {
           100% { transform: rotate(-360deg); }
         }
         
-        .animate-conveyor-left { animation: conveyor-left 40s linear infinite; }
-        .animate-conveyor-right { animation: conveyor-right 45s linear infinite; }
-        .animate-spin-slow { animation: spin-slow 60s linear infinite; }
-        .animate-spin-reverse-slow { animation: spin-reverse-slow 70s linear infinite; }
+        /* Ajuste de tempo: 120s e 150s para um movimento extremamente suave e lento */
+        .animate-conveyor-left { animation: conveyor-left 120s linear infinite; }
+        .animate-conveyor-right { animation: conveyor-right 150s linear infinite; }
         
-        /* Uma máscara radial para que as bordas da tela fiquem mais desfocadas do que o centro, ou vice-versa */
+        /* Rotação dos pratos também muito sutil */
+        .animate-spin-slow { animation: spin-slow 180s linear infinite; }
+        .animate-spin-reverse-slow { animation: spin-reverse-slow 200s linear infinite; }
+        
         .mask-radial-fade {
           -webkit-mask-image: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,1) 80%);
           mask-image: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,1) 80%);
