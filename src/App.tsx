@@ -4,7 +4,7 @@ import Dashboard from './components/Dashboard';
 import MealCapture from './components/MealCapture';
 import InstallPWA from './components/InstallPWA';
 import IntroScreen from './components/IntroScreen';
-import FloatingFoods from './components/FloatingFoods';
+import FoodConveyor from './components/FoodConveyor';
 
 type View = 'landing' | 'tracker' | 'create-plan' | 'dashboard';
 
@@ -35,7 +35,7 @@ function App() {
   return (
     <div className="bg-[#f0fdf4] text-slate-800 font-sans w-full relative min-h-screen">
       {/* Background Animated Foods */}
-      <FloatingFoods />
+      <FoodConveyor />
 
       {/* Intro Screen */}
       {showIntro && <IntroScreen onComplete={() => setShowIntro(false)} />}
