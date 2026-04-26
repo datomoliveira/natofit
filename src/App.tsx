@@ -6,6 +6,7 @@ import InstallPWA from './components/InstallPWA';
 import IntroScreen from './components/IntroScreen';
 import FoodConveyor from './components/FoodConveyor';
 import Login from './components/Login';
+import WeeklyCalendar from './components/WeeklyCalendar';
 
 type View = 'landing' | 'tracker' | 'create-plan' | 'dashboard' | 'login';
 
@@ -130,6 +131,11 @@ function App() {
         {/* ── Landing Page ── */}
         {view === 'landing' && (
           <>
+            {/* Global Calendar - Visible on Landing */}
+            <div className="container mx-auto px-8 mb-12 mt-6">
+              <WeeklyCalendar />
+            </div>
+
             {/* Hero */}
             <section className="relative min-h-[680px] flex items-center overflow-hidden">
               <div className="absolute inset-0 z-0 opacity-10 p-8">
