@@ -83,20 +83,23 @@ const Dashboard: React.FC<DashboardProps> = ({ userData, refreshKey }) => {
     <div className="container mx-auto px-4 md:px-8 animate-fade-in pb-24">
 
       {/* Header */}
-      <div className="mb-10 flex justify-between items-end">
-        <div>
-          <span className="text-blue-500 font-black tracking-widest text-xs uppercase block mb-2">
-            Painel de Controle
-          </span>
-          <h1 className="text-4xl md:text-5xl font-black text-slate-800">
-            Hoje, <span className="text-blue-500">{new Date().toLocaleDateString('pt-BR', { weekday: 'long' })}</span>
+      <div className="mb-12 md:mb-16 flex flex-col lg:flex-row lg:items-end justify-between gap-8 mt-4">
+        <div className="max-w-2xl">
+          <span className="font-bold text-slate-800 text-sm mb-2 md:mb-4 block">_Painel de Controle</span>
+          <h1 className="text-5xl md:text-7xl font-light text-slate-900 leading-tight tracking-tighter">
+            Hoje, <span className="font-medium text-blue-600">{new Date().toLocaleDateString('pt-BR', { weekday: 'long' })}.</span>
           </h1>
         </div>
-        <div className="clay-effect p-4 rounded-3xl flex items-center gap-2 hidden md:flex" style={clayBox}>
-          <span className="material-symbols-outlined text-blue-400 text-xl">calendar_today</span>
-          <span className="font-bold text-slate-500 text-sm">
-            Plano até {new Date(userData.data_expiracao).toLocaleDateString('pt-BR')}
-          </span>
+        <div className="lg:max-w-xs lg:pb-2 flex flex-col gap-4">
+          <p className="text-slate-600 font-medium text-[10px] md:text-xs uppercase tracking-widest leading-loose">
+            ACOMPANHAMENTO DIÁRIO DO SEU CONSUMO CALÓRICO, MACRONUTRIENTES E PROGRESSO RUMO AO SEU OBJETIVO.
+          </p>
+          <div className="clay-effect p-3 px-5 rounded-full flex items-center gap-2 bg-blue-50/50 w-fit" style={clayBox}>
+            <span className="material-symbols-outlined text-blue-400 text-lg">calendar_today</span>
+            <span className="font-bold text-slate-500 text-[10px] md:text-xs uppercase tracking-widest">
+              Até {new Date(userData.data_expiracao).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })}
+            </span>
+          </div>
         </div>
       </div>
 

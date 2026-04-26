@@ -200,14 +200,19 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
     <div className="max-w-lg mx-auto px-4 py-6 animate-fade-in">
 
       {/* Header */}
-      <div className="text-center mb-10 mt-4">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-50/80 backdrop-blur mb-6 shadow-sm border border-blue-100/50">
-          <span className="material-symbols-outlined text-blue-500 text-3xl">add_a_photo</span>
+      <div className="mb-12 md:mb-16 flex flex-col lg:flex-row lg:items-end justify-between gap-8 mt-4 animate-slide-up">
+        <div className="max-w-2xl">
+          <span className="font-bold text-slate-800 text-sm mb-2 md:mb-4 block">_Cálculo Calórico</span>
+          <h1 className="text-5xl md:text-7xl font-light text-slate-900 leading-tight tracking-tighter">
+            Análise em tempo<br/>
+            real do seu prato.
+          </h1>
         </div>
-        <h1 className="text-5xl font-extrabold text-slate-800 mb-4 tracking-tight">Cálculo Calórico</h1>
-        <p className="text-slate-500 font-medium text-lg leading-relaxed max-w-sm mx-auto">
-          Fotografe seu prato e deixe a tecnologia calcular as calorias instantaneamente com precisão.
-        </p>
+        <div className="lg:max-w-xs lg:pb-2">
+          <p className="text-slate-600 font-medium text-[10px] md:text-xs uppercase tracking-widest leading-loose">
+            FOTOGRAFE SEU PRATO E DEIXE A TECNOLOGIA CALCULAR AS CALORIAS E MACRONUTRIENTES INSTANTANEAMENTE COM PRECISÃO EXTREMA.
+          </p>
+        </div>
       </div>
 
       {/* ── Etapa: IDLE ── */}

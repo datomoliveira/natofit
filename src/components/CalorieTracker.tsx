@@ -138,17 +138,22 @@ const CalorieTracker: React.FC = () => {
   return (
     <div className="container mx-auto px-6 pb-24 animate-fade-in max-w-2xl">
       {/* Header */}
-      <div className="py-8 flex justify-between items-center">
-        <div>
-          <span className="text-blue-500 font-black uppercase text-xs tracking-widest block mb-1">Controle Calórico</span>
-          <h1 className="text-4xl font-black text-slate-800">Hoje</h1>
-          <p className="text-slate-400 font-semibold text-sm">
-            {new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })}
-          </p>
+      <div className="mb-12 md:mb-16 flex flex-col lg:flex-row lg:items-end justify-between gap-8 mt-4">
+        <div className="max-w-2xl">
+          <span className="font-bold text-slate-800 text-sm mb-2 md:mb-4 block">_Controle Calórico</span>
+          <h1 className="text-5xl md:text-7xl font-light text-slate-900 leading-tight tracking-tighter">
+            Progresso de<br/>
+            <span className="font-medium text-blue-600">Hoje.</span>
+          </h1>
         </div>
-        <button onClick={resetDay} className="clay-button text-slate-400 px-4 py-2 rounded-full text-xs font-bold">
-          Zerar dia
-        </button>
+        <div className="lg:max-w-xs lg:pb-2 flex flex-col gap-4">
+          <p className="text-slate-600 font-medium text-[10px] md:text-xs uppercase tracking-widest leading-loose">
+            {new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }).toUpperCase()}. ACOMPANHE O SEU CONSUMO AO LONGO DO DIA E MANTENHA-SE NA META.
+          </p>
+          <button onClick={resetDay} className="clay-button text-slate-400 px-5 py-3 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest w-fit">
+            Zerar dia
+          </button>
+        </div>
       </div>
 
       {/* Daily Progress Card */}

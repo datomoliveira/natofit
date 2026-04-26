@@ -118,10 +118,20 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onComplete }) => {
 
   return (
     <div className="max-w-xl mx-auto p-6 animate-fade-in">
-      <div className="mb-10 text-center">
-        <span className="material-symbols-outlined text-blue-500 text-5xl mb-4 block">account_circle</span>
-        <h2 className="text-4xl font-extrabold text-slate-800 mb-2">Criar Plano de Elite</h2>
-        <p className="text-slate-500 font-semibold text-lg">Preencha seus dados para um protocolo personalizado.</p>
+      {/* Header */}
+      <div className="mb-12 md:mb-16 flex flex-col lg:flex-row lg:items-end justify-between gap-8 mt-4 text-left">
+        <div className="max-w-2xl">
+          <span className="font-bold text-slate-800 text-sm mb-2 md:mb-4 block">_Configuração Inicial</span>
+          <h1 className="text-5xl md:text-7xl font-light text-slate-900 leading-tight tracking-tighter">
+            Criar Plano<br/>
+            de Elite.
+          </h1>
+        </div>
+        <div className="lg:max-w-xs lg:pb-2 flex flex-col gap-4">
+          <p className="text-slate-600 font-medium text-[10px] md:text-xs uppercase tracking-widest leading-loose">
+            PREENCHA SEUS DADOS BIOMÉTRICOS PARA A GERAÇÃO DE UM PROTOCOLO NUTRICIONAL ESTREITAMENTE PERSONALIZADO E DE ALTA PERFORMANCE.
+          </p>
+        </div>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6 bg-blue-50/60 p-8 rounded-[2.5rem] clay-effect">
