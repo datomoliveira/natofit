@@ -16,6 +16,7 @@ const SoulTraceAssessment: React.FC<SoulTraceAssessmentProps> = ({ onComplete, o
     setLoading(true);
     setError(null);
     try {
+      console.log('Solicitando próxima questão ao SoulTrace...', { answersCount: currentAnswers.length });
       const response = await fetch('https://soultrace.app/api/agent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -23,10 +24,13 @@ const SoulTraceAssessment: React.FC<SoulTraceAssessmentProps> = ({ onComplete, o
       });
 
       if (!response.ok) {
-        throw new Error('Erro ao conectar com a API do SoulTrace.');
+        const errorText = await response.text();
+        console.error('Erro na resposta da API SoulTrace:', response.status, errorText);
+        throw new Error(`Erro na API (${response.status}). Verifique sua conexão.`);
       }
 
       const data = await response.json();
+      console.log('Resposta SoulTrace recebida:', data.status);
 
       if (data.status === 'complete') {
         onComplete(data);
@@ -34,8 +38,9 @@ const SoulTraceAssessment: React.FC<SoulTraceAssessmentProps> = ({ onComplete, o
         setCurrentQuestion(data.question);
         setProgress(data.progress);
       }
-    } catch (err) {
-      setError('Houve um problema ao carregar o questionário. Tente novamente.');
+    } catch (err: any) {
+      console.error('Falha ao carregar SoulTrace:', err);
+      setError(err.message || 'Houve um problema ao carregar o questionário. Verifique sua conexão ou tente mais tarde.');
     } finally {
       setLoading(false);
     }
@@ -54,14 +59,14 @@ const SoulTraceAssessment: React.FC<SoulTraceAssessmentProps> = ({ onComplete, o
   };
 
   const getFitnessContext = () => {
-    return "Como essa afirmação se aplica à sua rotina de treinos (musculação/aeróbicos) e aderência à dieta?";
+    return "Como essa afirmação se aplica à sua rotina de treinos e dieta?";
   };
 
   if (loading && !currentQuestion) {
     return (
       <div className="p-8 text-center bg-blue-50/90 rounded-[2.5rem] clay-effect animate-pulse">
         <span className="material-symbols-outlined text-4xl text-blue-500 animate-spin mb-4">sync</span>
-        <p className="text-slate-600 font-bold tracking-widest uppercase text-sm">Analisando Perfil Psicológico...</p>
+        <p className="text-slate-600 font-bold tracking-widest uppercase text-sm">Analisando Perfil...</p>
       </div>
     );
   }
@@ -70,7 +75,7 @@ const SoulTraceAssessment: React.FC<SoulTraceAssessmentProps> = ({ onComplete, o
     <div className="p-6 md:p-8 bg-blue-50/90 rounded-[2.5rem] clay-effect">
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-xl font-black text-slate-800 tracking-tighter uppercase">
-          Perfil de Treino (SoulTrace)
+          Perfil de Treino
         </h3>
         <span className="text-blue-500 font-bold text-sm bg-white px-3 py-1 rounded-full clay-effect">
           {progress.answered} / {progress.total}
@@ -78,7 +83,10 @@ const SoulTraceAssessment: React.FC<SoulTraceAssessmentProps> = ({ onComplete, o
       </div>
 
       {error ? (
-        <div className="text-red-500 mb-6 text-sm font-medium">{error}</div>
+        <div className="text-red-500 mb-6 text-sm font-medium p-4 bg-red-50 rounded-xl border border-red-100">
+          <span className="material-symbols-outlined text-xs mr-2">error</span>
+          {error}
+        </div>
       ) : (
         currentQuestion && (
           <div className="mb-8 animate-fade-in">
@@ -125,7 +133,7 @@ const SoulTraceAssessment: React.FC<SoulTraceAssessmentProps> = ({ onComplete, o
           onClick={onCancel}
           className="text-slate-400 hover:text-slate-600 font-bold text-xs uppercase tracking-widest underline decoration-slate-300 underline-offset-4"
         >
-          Cancelar Assessment
+          Cancelar Teste
         </button>
       </div>
     </div>
