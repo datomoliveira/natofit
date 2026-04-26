@@ -317,8 +317,8 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onComplete }) => {
           >
             <span className="material-symbols-outlined text-purple-400 text-3xl">psychology</span>
             <div className="flex-1">
-              <p className="font-black text-slate-700">Assessment Psicológico</p>
-              <p className="text-slate-400 font-semibold text-xs">Opcional • Powered by SoulTrace AI</p>
+              <p className="font-black text-slate-700">Teste de Perfil de Treino</p>
+              <p className="text-slate-400 font-semibold text-xs">Opcional • Identifique sua psicologia de treino</p>
             </div>
             <span className={`material-symbols-outlined text-slate-400 transition-transform ${showSoulTrace ? 'rotate-180' : ''}`}>
               expand_more
