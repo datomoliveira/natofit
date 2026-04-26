@@ -17,7 +17,12 @@ const SoulTraceAssessment: React.FC<SoulTraceAssessmentProps> = ({ onComplete, o
     setError(null);
     try {
       console.log('Solicitando próxima questão ao SoulTrace...', { answersCount: currentAnswers.length });
-      const response = await fetch('https://soultrace.app/api/agent', {
+      
+      // Usando um proxy de CORS para evitar bloqueios do navegador em localhost/ambientes de dev
+      const proxyUrl = 'https://corsproxy.io/?';
+      const targetUrl = 'https://soultrace.app/api/agent';
+      
+      const response = await fetch(proxyUrl + encodeURIComponent(targetUrl), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ answers: currentAnswers }),
