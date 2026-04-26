@@ -71,7 +71,10 @@ export default {
       try {
         const soulTraceResp = await fetch('https://soultrace.app/api/agent', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+            'Accept-Language': 'pt-BR' 
+          },
           body: request.body // Repassa o stream diretamente sem carregar na memória/CPU
         });
         return new Response(soulTraceResp.body, { 
