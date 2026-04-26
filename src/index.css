@@ -2,28 +2,28 @@
 
 @theme {
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --color-primary: #3b82f6;
-  --color-primary-container: #93c5fd;
+  --color-primary: #059669;
+  --color-primary-container: #6ee7b7;
 }
 
 /* Custom Claymorphic Styles - Agressive 3D */
 .clay-effect {
   box-shadow: 
-    16px 16px 32px rgba(0,0,0,0.08), 
+    16px 16px 32px rgba(0,0,0,0.06), 
     -12px -12px 24px rgba(255,255,255,1), 
     inset 8px 8px 16px rgba(255,255,255,0.9), 
-    inset -8px -8px 16px rgba(0,0,0,0.04);
-  background-color: #f1f5f9;
+    inset -8px -8px 16px rgba(0,0,0,0.02);
+  background-color: #f0fdf4;
   border: 3px solid rgba(255,255,255,0.7);
 }
 
 .clay-button {
   box-shadow: 
-    8px 8px 16px rgba(0,0,0,0.08), 
+    8px 8px 16px rgba(0,0,0,0.06), 
     -6px -6px 12px rgba(255,255,255,1), 
     inset 4px 4px 8px rgba(255,255,255,0.9), 
-    inset -4px -4px 8px rgba(0,0,0,0.05);
-  background-color: #f1f5f9;
+    inset -4px -4px 8px rgba(0,0,0,0.02);
+  background-color: #f0fdf4;
   border: 2px solid rgba(255,255,255,0.7);
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }

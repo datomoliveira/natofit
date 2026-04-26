@@ -4,6 +4,7 @@ import Dashboard from './components/Dashboard';
 import MealCapture from './components/MealCapture';
 import InstallPWA from './components/InstallPWA';
 import IntroScreen from './components/IntroScreen';
+import FloatingFoods from './components/FloatingFoods';
 
 type View = 'landing' | 'tracker' | 'create-plan' | 'dashboard';
 
@@ -32,17 +33,20 @@ function App() {
   };
 
   return (
-    <div className="bg-blue-50 text-slate-800 font-sans w-full relative min-h-screen">
+    <div className="bg-[#f0fdf4] text-slate-800 font-sans w-full relative min-h-screen">
+      {/* Background Animated Foods */}
+      <FloatingFoods />
+
       {/* Intro Screen */}
       {showIntro && <IntroScreen onComplete={() => setShowIntro(false)} />}
 
       {/* Main Content (faded in after intro starts moving) */}
       <div className={`transition-opacity duration-1000 ${showIntro ? 'opacity-0' : 'opacity-100'}`}>
         {/* Header */}
-        <header className="bg-blue-50/90 backdrop-blur-2xl fixed top-0 w-full z-50 flex justify-between items-center px-6 md:px-8 py-4"
-          style={{ boxShadow: '0 4px 20px rgba(163,177,198,0.2)' }}>
+        <header className="bg-white/70 backdrop-blur-2xl fixed top-0 w-full z-50 flex justify-between items-center px-6 md:px-8 py-4"
+          style={{ boxShadow: '0 4px 20px rgba(6,95,70,0.05)' }}>
           <button onClick={() => setView('landing')} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-          <span className="material-symbols-outlined text-blue-500 text-2xl">bolt</span>
+          <span className="material-symbols-outlined text-emerald-600 text-2xl">bolt</span>
           <span className="text-2xl font-black tracking-wide text-blue-500">NatoFit</span>
         </button>
 
