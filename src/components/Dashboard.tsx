@@ -87,15 +87,15 @@ const Dashboard: React.FC<DashboardProps> = ({ userData, refreshKey }) => {
         <div className="max-w-2xl">
           <span className="font-bold text-slate-800 text-sm mb-2 md:mb-4 block">_Painel de Controle</span>
           <h1 className="text-5xl md:text-7xl font-light text-slate-900 leading-tight tracking-tighter">
-            Hoje, <span className="font-medium text-blue-600">{new Date().toLocaleDateString('pt-BR', { weekday: 'long' })}.</span>
+            Hoje, <span className="font-medium text-emerald-600">{new Date().toLocaleDateString('pt-BR', { weekday: 'long' })}.</span>
           </h1>
         </div>
         <div className="lg:max-w-xs lg:pb-2 flex flex-col gap-4">
           <p className="text-slate-600 font-medium text-[10px] md:text-xs uppercase tracking-widest leading-loose">
             ACOMPANHAMENTO DIÁRIO DO SEU CONSUMO CALÓRICO, MACRONUTRIENTES E PROGRESSO RUMO AO SEU OBJETIVO.
           </p>
-          <div className="clay-effect p-3 px-5 rounded-full flex items-center gap-2 bg-blue-50/50 w-fit" style={clayBox}>
-            <span className="material-symbols-outlined text-blue-400 text-lg">calendar_today</span>
+          <div className="clay-effect p-3 px-5 rounded-full flex items-center gap-2 bg-emerald-50/50 w-fit" style={clayBox}>
+            <span className="material-symbols-outlined text-emerald-400 text-lg">calendar_today</span>
             <span className="font-bold text-slate-500 text-[10px] md:text-xs uppercase tracking-widest">
               Até {new Date(userData.data_expiracao).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })}
             </span>
@@ -126,12 +126,12 @@ const Dashboard: React.FC<DashboardProps> = ({ userData, refreshKey }) => {
                 key={i}
                 className={`flex-shrink-0 w-16 md:w-20 p-4 rounded-3xl flex flex-col items-center gap-1 transition-all ${
                   isToday 
-                    ? 'bg-blue-500 text-white shadow-[0_10px_20px_rgba(59,130,246,0.3)] scale-105 z-10' 
-                    : 'bg-blue-50 text-slate-500'
+                    ? 'bg-emerald-600 text-white shadow-[0_10px_20px_rgba(5,150,105,0.3)] scale-105 z-10' 
+                    : 'bg-emerald-50/50 text-slate-500'
                 }`}
                 style={isToday ? {} : clayBox}
               >
-                <span className={`text-[10px] uppercase font-black tracking-widest ${isToday ? 'text-blue-100' : 'text-slate-400'}`}>
+                <span className={`text-[10px] uppercase font-black tracking-widest ${isToday ? 'text-emerald-100' : 'text-slate-400'}`}>
                   {dayName}
                 </span>
                 <span className="text-xl md:text-2xl font-black">
@@ -143,19 +143,45 @@ const Dashboard: React.FC<DashboardProps> = ({ userData, refreshKey }) => {
         })()}
       </div>
 
+      {/* PROMO CARD - ESTILO NUTRIA */}
+      <div className="mb-10 rounded-[3rem] p-8 md:p-12 bg-emerald-600 relative overflow-hidden flex flex-col md:flex-row items-center gap-8 shadow-2xl" style={clayBox}>
+        <div className="flex-1 z-10">
+          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tighter mb-4 leading-none uppercase">
+            Sentindo-se <br/> Melhor?
+          </h2>
+          <p className="text-emerald-100 font-medium text-lg max-w-sm mb-6">
+            Mantenha sua vida saudável com boa alimentação e o tracking preciso da NatoFit.
+          </p>
+          <button className="bg-white text-emerald-700 px-8 py-3 rounded-2xl font-black uppercase tracking-widest text-xs clay-button hover:scale-105 active:scale-95 transition-all">
+            Ver Recomendações
+          </button>
+        </div>
+        <div className="relative w-full md:w-[400px] h-[300px] md:h-[350px] flex-shrink-0">
+          <div className="absolute inset-0 bg-white/10 rounded-[3rem] backdrop-blur-sm -rotate-3" />
+          <img 
+            src="/promo_salad.png" 
+            alt="Salada Saudável" 
+            className="absolute inset-0 w-full h-full object-cover rounded-[3rem] shadow-xl transform rotate-2 hover:rotate-0 transition-transform duration-500"
+          />
+        </div>
+        {/* Decorativos */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-400/20 rounded-full blur-3xl -mr-32 -mt-32" />
+        <div className="absolute bottom-0 left-0 w-32 h-32 bg-emerald-800/20 rounded-full blur-2xl -ml-16 -mb-16" />
+      </div>
+
       {/* Grid principal */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
 
         {/* Card: Consumo Diário */}
-        <div className="lg:col-span-2 rounded-[3rem] p-8 md:p-10 bg-blue-50 relative overflow-hidden transition-transform hover:-translate-y-1" style={clayBox}>
-          <span className="text-xs text-blue-500 font-black tracking-widest uppercase block mb-6">Consumo Diário</span>
+        <div className="lg:col-span-2 rounded-[3rem] p-8 md:p-10 bg-emerald-50/50 relative overflow-hidden transition-transform hover:-translate-y-1" style={clayBox}>
+          <span className="text-xs text-emerald-600 font-black tracking-widest uppercase block mb-6">Consumo Diário</span>
 
           <div className="flex flex-col md:flex-row gap-8 items-start md:items-end mb-8">
             {/* Calorias consumidas */}
-            <div className="rounded-3xl p-6 bg-blue-50 flex-1" style={clayInset}>
+            <div className="rounded-3xl p-6 bg-white/50 flex-1" style={clayInset}>
               <p className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-1">Consumido</p>
               <div className="flex items-end gap-2">
-                <span className={`text-6xl font-black leading-none ${excesso > 0 ? 'text-red-500' : 'text-blue-500'}`}>
+                <span className={`text-6xl font-black leading-none ${excesso > 0 ? 'text-red-500' : 'text-emerald-600'}`}>
                   {consumoDiario}
                 </span>
                 <span className="text-slate-400 font-bold text-lg mb-1">kcal</span>
@@ -163,10 +189,10 @@ const Dashboard: React.FC<DashboardProps> = ({ userData, refreshKey }) => {
             </div>
 
             {/* Divider */}
-            <span className="material-symbols-outlined text-slate-300 text-4xl hidden md:block mb-4">arrow_forward</span>
+            <span className="material-symbols-outlined text-emerald-200 text-4xl hidden md:block mb-4">arrow_forward</span>
 
             {/* Meta */}
-            <div className="rounded-3xl p-6 bg-blue-50 flex-1" style={clayInset}>
+            <div className="rounded-3xl p-6 bg-white/50 flex-1" style={clayInset}>
               <p className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-1">Meta do Dia</p>
               <div className="flex items-end gap-2">
                 <span className="text-6xl font-black text-slate-600 leading-none">{userData.meta_calorica}</span>
@@ -186,9 +212,9 @@ const Dashboard: React.FC<DashboardProps> = ({ userData, refreshKey }) => {
                 </span>
               )}
             </div>
-            <div className="h-5 bg-blue-100 rounded-full overflow-hidden" style={clayInset}>
+            <div className="h-5 bg-emerald-100/50 rounded-full overflow-hidden" style={clayInset}>
               <div
-                className={`h-full ${barColor} rounded-full transition-all duration-700`}
+                className={`h-full ${percentual >= 100 ? 'bg-red-400' : 'bg-emerald-500'} rounded-full transition-all duration-700`}
                 style={{ width: `${percentual}%` }}
               />
             </div>
@@ -199,11 +225,11 @@ const Dashboard: React.FC<DashboardProps> = ({ userData, refreshKey }) => {
             {[
               { label: 'Carboidratos', value: `${totalCarbs.toFixed(1)}g`,    icon: 'grain',       color: 'text-amber-500' },
               { label: 'Proteínas',   value: `${totalProteinas.toFixed(1)}g`, icon: 'exercise',    color: 'text-red-400'   },
-              { label: 'Gordura',     value: `${totalGordura.toFixed(1)}g`,   icon: 'water_drop',  color: 'text-blue-400'  },
+              { label: 'Gordura',     value: `${totalGordura.toFixed(1)}g`,   icon: 'water_drop',  color: 'text-emerald-400'  },
               { label: 'Açúcares',   value: `${totalAcucares.toFixed(1)}g`,  icon: 'icecream',    color: 'text-pink-400'  },
-              { label: 'Fibras',      value: `${totalFibras.toFixed(1)}g`,    icon: 'grass',       color: 'text-green-500' },
+              { label: 'Fibras',      value: `${totalFibras.toFixed(1)}g`,    icon: 'grass',       color: 'text-emerald-600' },
             ].map(item => (
-              <div key={item.label} className="rounded-2xl p-3 bg-blue-50 flex flex-col items-center gap-1 text-center" style={clayInset}>
+              <div key={item.label} className="rounded-2xl p-3 bg-white/50 flex flex-col items-center gap-1 text-center" style={clayInset}>
                 <span className={`material-symbols-outlined ${item.color} text-lg`}>{item.icon}</span>
                 <p className="font-black text-slate-700 text-sm">{item.value}</p>
                 <p className="text-slate-400 text-[10px] font-bold uppercase tracking-tight leading-tight">{item.label}</p>
@@ -212,13 +238,13 @@ const Dashboard: React.FC<DashboardProps> = ({ userData, refreshKey }) => {
           </div>
 
           {/* Glare decorativo */}
-          <div className="absolute -right-16 -bottom-16 w-56 h-56 bg-blue-200/20 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -right-16 -bottom-16 w-56 h-56 bg-emerald-200/20 rounded-full blur-3xl pointer-events-none" />
         </div>
 
         {/* Coluna secundária */}
         <div className="space-y-6">
-          <div className="rounded-[3rem] p-8 bg-blue-50 transition-transform hover:-translate-y-1" style={clayBox}>
-            <span className="material-symbols-outlined text-blue-500 text-4xl mb-4 block">scale</span>
+          <div className="rounded-[3rem] p-8 bg-emerald-50/50 transition-transform hover:-translate-y-1" style={clayBox}>
+            <span className="material-symbols-outlined text-emerald-600 text-4xl mb-4 block">scale</span>
             <h3 className="text-xl font-black text-slate-800 mb-1">Peso Corporal</h3>
             <p className="text-slate-400 font-bold text-xs uppercase tracking-wider mb-3">Métrica de Base</p>
             <div className="flex items-baseline gap-2">
@@ -226,13 +252,13 @@ const Dashboard: React.FC<DashboardProps> = ({ userData, refreshKey }) => {
               <span className="text-lg font-bold text-slate-400">kg</span>
             </div>
           </div>
-          <div className="rounded-[3rem] p-8 bg-blue-50 transition-transform hover:-translate-y-1" style={clayBox}>
-            <span className="material-symbols-outlined text-blue-500 text-4xl mb-4 block">local_fire_department</span>
-            <h3 className="text-xl font-black text-slate-800 mb-1">Refeições Hoje</h3>
-            <p className="text-slate-400 font-bold text-xs uppercase tracking-wider mb-3">Registros do Dia</p>
+          <div className="rounded-[3rem] p-8 bg-emerald-600 transition-transform hover:-translate-y-1" style={clayBox}>
+            <span className="material-symbols-outlined text-white text-4xl mb-4 block">local_fire_department</span>
+            <h3 className="text-xl font-black text-white mb-1">Refeições Hoje</h3>
+            <p className="text-emerald-100 font-bold text-xs uppercase tracking-wider mb-3">Registros do Dia</p>
             <div className="flex items-baseline gap-2">
-              <span className="text-5xl font-black text-blue-500">{refeicoes.length}</span>
-              <span className="text-lg font-bold text-slate-400">refeições</span>
+              <span className="text-5xl font-black text-white">{refeicoes.length}</span>
+              <span className="text-lg font-bold text-emerald-100">refeições</span>
             </div>
           </div>
         </div>
@@ -241,18 +267,18 @@ const Dashboard: React.FC<DashboardProps> = ({ userData, refreshKey }) => {
       {/* ── Histórico de Refeições de Hoje ── */}
       <div>
         <h2 className="text-2xl font-black text-slate-800 mb-5 flex items-center gap-3">
-          <span className="material-symbols-outlined text-blue-400">history</span>
+          <span className="material-symbols-outlined text-emerald-500">history</span>
           Histórico de Hoje
         </h2>
 
         {loadingMeals ? (
-          <div className="flex items-center justify-center gap-3 py-12 text-blue-400">
+          <div className="flex items-center justify-center gap-3 py-12 text-emerald-500">
             <span className="material-symbols-outlined animate-spin">refresh</span>
             <span className="font-bold">Carregando refeições...</span>
           </div>
         ) : refeicoes.length === 0 ? (
-          <div className="rounded-[3rem] p-12 text-center bg-blue-50" style={clayBox}>
-            <span className="material-symbols-outlined text-blue-200 text-6xl block mb-4">no_meals</span>
+          <div className="rounded-[3rem] p-12 text-center bg-white/50 shadow-inner" style={clayInset}>
+            <span className="material-symbols-outlined text-emerald-200 text-6xl block mb-4">no_meals</span>
             <p className="text-slate-400 font-bold text-lg mb-1">Nenhuma refeição registrada hoje</p>
             <p className="text-slate-300 font-semibold text-sm">Use o "Cálculo Calórico" para registrar</p>
           </div>
@@ -261,13 +287,13 @@ const Dashboard: React.FC<DashboardProps> = ({ userData, refreshKey }) => {
             {refeicoes.map((r, i) => (
               <div
                 key={r.id}
-                className="rounded-3xl p-5 bg-blue-50 flex items-center gap-5 animate-fade-in transition-transform hover:-translate-y-1"
+                className="rounded-3xl p-5 bg-white flex items-center gap-5 animate-fade-in transition-transform hover:-translate-y-1 shadow-sm"
                 style={{ ...clayBox, animationDelay: `${i * 60}ms` }}
               >
                 {/* Ícone numerado */}
                 <div
                   className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0"
-                  style={{ background: 'linear-gradient(145deg, #3b82f6, #2563eb)', boxShadow: '4px 4px 10px rgba(37,99,235,0.35)' }}
+                  style={{ background: 'linear-gradient(145deg, #059669, #047857)', boxShadow: '4px 4px 10px rgba(4,120,87,0.3)' }}
                 >
                   <span className="text-white font-black text-xl">{refeicoes.length - i}</span>
                 </div>

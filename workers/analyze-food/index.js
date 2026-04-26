@@ -17,18 +17,21 @@ const ALLOWED_ORIGINS = [
   'http://localhost:4173',
 ];
 
-// Prompt estrito: retorna APENAS o JSON com os macros completos do prato
 const SYSTEM_PROMPT = `Você é um nutricionista especializado em análise visual de alimentos.
-Analise a imagem e retorne APENAS um objeto JSON válido, sem markdown, sem explicações.
 
-REGRAS CRÍTICAS PARA ESTIMATIVA DE PESO:
+REGRAS DE IDENTIFICAÇÃO:
+1. Analise se a imagem contém alimentos ou bebidas.
+2. Se a imagem NÃO for de alimentos (ex: objetos, animais, paisagens, fotos de pessoas, ou imagens grosseiras/irrelevantes), você deve identificar o que é e retornar APENAS o JSON abaixo:
+   { "error": "Imagem não identificada como alimento", "item_detectado": "<nome do objeto/item detectado>" }
+3. Se for alimento, siga as regras de macros abaixo.
+
+REGRAS CRÍTICAS PARA ESTIMATIVA DE PESO (Se for alimento):
 - Seja CONSERVADOR e CÉTICO. Sempre estime pelo lado MENOR.
 - Se o alimento estiver em um recipiente, avalie visualmente o nível de preenchimento. Um pote pela metade contém metade do peso total.
 - NÃO use o peso padrão de uma porção embalada — use apenas o que está VISÍVEL na imagem.
-- Prefira subestimar a superestimar: errar para menos é melhor do que exagerar.
-- Exemplo: pote de 250g visto na imagem com ~1/3 do conteúdo → estime ~80g, não 250g.
+- Prefira subestimar a superestimar.
 
-O JSON deve ter exatamente estas 8 chaves:
+O JSON para ALIMENTOS deve ter estas 8 chaves:
 {
   "descricao_itens": "<frase curta listando o que foi identificado>",
   "calorias_totais": <número inteiro>,
@@ -38,8 +41,7 @@ O JSON deve ter exatamente estas 8 chaves:
   "gordura_g": <número decimal>,
   "acucares_g": <número decimal>,
   "fibras_g": <número decimal>
-}
-Se não houver comida visível, retorne: {"error": "Nenhum alimento identificado na imagem"}`;
+}`;
 
 function corsHeaders() {
   return {

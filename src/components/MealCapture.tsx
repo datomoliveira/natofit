@@ -264,11 +264,11 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
                  value={contextText}
                  onChange={e => setContextText(e.target.value)}
                  placeholder="Ex: Comi meia porção de arroz com feijão..."
-                 className="w-full bg-blue-50/50 backdrop-blur-sm rounded-2xl p-4 pr-14 text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder:text-slate-400 resize-none h-24"
+                 className="w-full bg-emerald-50/50 backdrop-blur-sm rounded-2xl p-4 pr-14 text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder:text-slate-400 resize-none h-24"
                />
                <button 
                  onClick={isRecording ? undefined : startRecording}
-                 className={`absolute right-3 bottom-3 w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-md ${isRecording ? 'bg-red-500 text-white animate-pulse' : 'bg-blue-100 text-blue-500 hover:bg-blue-200'}`}
+                 className={`absolute right-3 bottom-3 w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-md ${isRecording ? 'bg-red-500 text-white animate-pulse' : 'bg-blue-100 text-emerald-500 hover:bg-blue-200'}`}
                >
                  <span className="material-symbols-outlined">{isRecording ? 'mic' : 'mic_none'}</span>
                </button>
@@ -319,12 +319,12 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
                  onChange={e => setContextText(e.target.value)}
                  placeholder="Ex: O prato é fundo, tem uns 300g..."
                  disabled={step === 'analyzing'}
-                 className="w-full bg-blue-50/50 backdrop-blur-sm rounded-2xl p-4 pr-14 text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder:text-slate-400 resize-none h-20 disabled:opacity-60"
+                 className="w-full bg-emerald-50/50 backdrop-blur-sm rounded-2xl p-4 pr-14 text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder:text-slate-400 resize-none h-20 disabled:opacity-60"
                />
                <button 
                  onClick={isRecording ? undefined : startRecording}
                  disabled={step === 'analyzing'}
-                 className={`absolute right-3 bottom-3 w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-md disabled:opacity-60 ${isRecording ? 'bg-red-500 text-white animate-pulse' : 'bg-blue-100 text-blue-500 hover:bg-blue-200'}`}
+                 className={`absolute right-3 bottom-3 w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-md disabled:opacity-60 ${isRecording ? 'bg-red-500 text-white animate-pulse' : 'bg-blue-100 text-emerald-500 hover:bg-blue-200'}`}
                >
                  <span className="material-symbols-outlined">{isRecording ? 'mic' : 'mic_none'}</span>
                </button>
@@ -373,7 +373,7 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
               <img src={imageDataUrl} alt="Prato" className="w-full h-48 object-cover opacity-80" />
             )}
             <div className="p-8">
-              <p className="text-xs font-black text-blue-500 uppercase tracking-widest mb-2">Resultado da Análise</p>
+              <p className="text-xs font-black text-emerald-500 uppercase tracking-widest mb-2">Resultado da Análise</p>
               {result.descricao_itens && (
                 <p className="result-text text-slate-600 font-bold text-lg mb-4 leading-tight opacity-0">
                   {result.descricao_itens}
@@ -382,7 +382,7 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
 
               {/* Calorias em destaque */}
               <div className="clay-effect rounded-3xl p-6 text-center mb-5">
-                <span className="text-6xl font-black text-blue-500 leading-none">{animatedCalories}</span>
+                <span className="text-6xl font-black text-emerald-500 leading-none">{animatedCalories}</span>
                 <span className="text-slate-400 font-bold text-lg block mt-1">kcal</span>
               </div>
 
@@ -440,7 +440,7 @@ const MealCapture: React.FC<MealCaptureProps> = ({ onMealSaved }) => {
           <span className="material-symbols-outlined text-green-500 text-6xl mb-4 block">check_circle</span>
           <h2 className="text-3xl font-black text-slate-800 mb-2">Refeição Salva!</h2>
           <p className="text-slate-500 font-semibold mb-2">
-            <span className="text-blue-500 font-black text-xl">{animatedCalories || result.calorias_totais} kcal</span> registradas no seu painel.
+            <span className="text-emerald-500 font-black text-xl">{animatedCalories || result.calorias_totais} kcal</span> registradas no seu painel.
           </p>
           <p className="text-slate-400 font-bold text-sm mb-8">
             Carbs: {result.carboidratos_g}g · Prot: {result.proteinas_g}g · Gord: {result.gordura_g}g
