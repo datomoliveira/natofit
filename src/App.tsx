@@ -18,10 +18,32 @@ function App() {
   const [showIntro, setShowIntro] = useState(true);
 
   useEffect(() => {
-    const saved = localStorage.getItem('natofit_user');
-    if (saved) {
-      setUserData(JSON.parse(saved));
-    }
+    // Verificar sessão inicial do Supabase
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user) {
+        // Buscar dados do perfil
+        supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', session.user.id)
+          .single()
+          .then(({ data: profile }) => {
+            setUserData(profile || { id: session.user.id, email: session.user.email });
+          });
+      }
+    });
+
+    // Ouvir mudanças de autenticação
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!session) {
+        setUserData(null);
+        localStorage.removeItem('natofit_user');
+      } else if (session.user) {
+        // Se houver troca de usuário ou login novo, o userData é atualizado no Login.tsx ou aqui
+      }
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   const handleComplete = (data: any) => {
@@ -80,7 +102,13 @@ function App() {
             { label: 'Criar Plano', v: 'create-plan' as View, icon: 'rocket_launch' },
           ].map(item => (
             <button key={item.v}
-              onClick={() => item.v === 'dashboard' && !userData ? setView('create-plan') : setView(item.v)}
+              onClick={() => {
+                if (item.v === 'create-plan' && !userData) {
+                  setView('login');
+                } else {
+                  setView(item.v);
+                }
+              }}
               className={`font-bold px-4 py-2 rounded-full text-sm flex items-center gap-2 transition-all ${
                 view === item.v ? 'bg-emerald-100 text-emerald-600' : 'text-slate-500 hover:text-emerald-500'
               }`}
@@ -165,7 +193,10 @@ function App() {
                       <span className="material-symbols-outlined">add_a_photo</span>
                       Cálculo Calórico
                     </button>
-                    <button onClick={() => setView('create-plan')}
+                    <button onClick={() => {
+                      if (!userData) setView('login');
+                      else setView('create-plan');
+                    }}
                       className="px-10 py-5 rounded-full font-black text-lg text-slate-600 flex items-center gap-3 transition-all active:scale-95 bg-white/80 backdrop-blur-sm border border-white shadow-xl">
                       <span className="material-symbols-outlined text-emerald-500">rocket_launch</span>
                       Criar Plano
@@ -184,7 +215,10 @@ function App() {
                     { icon: 'biotech', title: 'Laudo de Bioimpedância', desc: 'Envie o laudo e extraia gordura, massa magra e TMB automaticamente.', v: 'create-plan' as View },
                   ].map(f => (
                     <div key={f.v}
-                      onClick={() => f.v === 'dashboard' && !userData ? setView('create-plan') : setView(f.v)}
+                      onClick={() => {
+                        if (f.v === 'create-plan' && !userData) setView('login');
+                        else setView(f.v);
+                      }}
                       className="group rounded-[3rem] p-10 bg-white/60 backdrop-blur-lg cursor-pointer transition-transform hover:-translate-y-2 border border-white shadow-xl">
                       <span className="material-symbols-outlined text-emerald-600 text-5xl mb-5 block">{f.icon}</span>
                       <h3 className="text-2xl font-black text-slate-800 mb-3">{f.title}</h3>
@@ -210,7 +244,10 @@ function App() {
                       <span className="material-symbols-outlined">add_a_photo</span>
                       Cálculo Calórico
                     </button>
-                    <button onClick={() => setView('create-plan')}
+                    <button onClick={() => {
+                      if (!userData) setView('login');
+                      else setView('create-plan');
+                    }}
                       className="px-12 py-5 rounded-full font-black text-xl text-slate-600 flex items-center gap-3 active:scale-95 transition-all bg-white shadow-lg border border-emerald-100">
                       <span className="material-symbols-outlined text-emerald-500">person_add</span>
                       Criar Plano
@@ -230,7 +267,13 @@ function App() {
           { icon: 'rocket_launch', label: 'Plano', v: 'create-plan' as View },
         ].map(item => (
           <button key={item.v}
-            onClick={() => item.v === 'dashboard' && !userData ? setView('create-plan') : setView(item.v)}
+            onClick={() => {
+              if (item.v === 'create-plan' && !userData) {
+                setView('login');
+              } else {
+                setView(item.v);
+              }
+            }}
             className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-2xl transition-all ${
               view === item.v ? 'text-emerald-600 font-black' : 'text-slate-400'
             }`}>
