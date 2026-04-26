@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { supabase } from './lib/supabase';
 import ProfileForm from './components/ProfileForm';
 import Dashboard from './components/Dashboard';
 import MealCapture from './components/MealCapture';
