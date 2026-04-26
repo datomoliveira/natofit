@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import { calculateBMR, calculateDailyGoal, calculateExpirationDate } from '../utils/calories';
 import type { ActivityLevel } from '../utils/calories';
 import { supabase } from '../lib/supabase';
-import SoulTraceAssessment from './SoulTraceAssessment';
 
 const WORKER_ANALYZE_BIOIMP = import.meta.env.VITE_WORKER_ANALYZE_BIOIMP || 'http://localhost:8788';
 
@@ -30,7 +29,6 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onComplete }) => {
   const [bioimPreview, setBioimPreview] = useState<string | null>(null);
   const [bioimError, setBioimError] = useState<string | null>(null);
   const [showBioimSection, setShowBioimSection] = useState(false);
-  const [showSoulTrace, setShowSoulTrace] = useState(false);
   const [soulTraceResult, setSoulTraceResult] = useState<any>(null);
   const bioimInputRef = useRef<HTMLInputElement>(null);
 
@@ -308,48 +306,6 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onComplete }) => {
           )}
         </div>
 
-        {/* SoulTrace Assessment Section */}
-        <div className="border-t-2 border-white/60 pt-6">
-          <button
-            type="button"
-            onClick={() => setShowSoulTrace(!showSoulTrace)}
-            className="w-full clay-button rounded-2xl p-5 flex items-center gap-4 text-left mb-4"
-          >
-            <span className="material-symbols-outlined text-purple-400 text-3xl">psychology</span>
-            <div className="flex-1">
-              <p className="font-black text-slate-700">Teste de Perfil de Treino</p>
-              <p className="text-slate-400 font-semibold text-xs">Opcional • Identifique sua psicologia de treino</p>
-            </div>
-            <span className={`material-symbols-outlined text-slate-400 transition-transform ${showSoulTrace ? 'rotate-180' : ''}`}>
-              expand_more
-            </span>
-          </button>
-
-          {showSoulTrace && (
-            <div className="mt-4">
-              {soulTraceResult ? (
-                <div className="clay-effect rounded-3xl p-6 bg-white/50 text-center">
-                  <span className="material-symbols-outlined text-green-500 text-5xl block mb-2">check_circle</span>
-                  <p className="font-black text-slate-800 text-xl">Perfil Traçado!</p>
-                  <p className="text-sm font-bold text-slate-500 mt-1 uppercase tracking-widest">
-                    Arquétipo: <span className="text-purple-600">{soulTraceResult.archetype?.name}</span>
-                  </p>
-                  <p className="text-xs text-slate-400 mt-2">
-                    Score de Alinhamento: {soulTraceResult.archetype?.alignmentScore}%
-                  </p>
-                  <button type="button" onClick={() => { setSoulTraceResult(null); setShowSoulTrace(false); }} className="mt-4 text-xs font-bold text-slate-400 underline">
-                    Refazer Teste
-                  </button>
-                </div>
-              ) : (
-                <SoulTraceAssessment
-                  onComplete={(result) => setSoulTraceResult(result)}
-                  onCancel={() => setShowSoulTrace(false)}
-                />
-              )}
-            </div>
-          )}
-        </div>
 
         <button type="submit" disabled={loading}
           className="w-full py-5 bg-emerald-600 text-white rounded-full font-black text-xl shadow-[0_8px_24px_rgba(5,150,105,0.3)] hover:bg-emerald-700 active:scale-95 transition-all disabled:opacity-50 flex items-center justify-center gap-3"

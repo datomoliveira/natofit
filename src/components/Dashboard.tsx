@@ -66,7 +66,7 @@ const Dashboard: React.FC<DashboardProps> = ({ userData, refreshKey }) => {
     ? 'bg-red-400'
     : percentual >= 80
     ? 'bg-amber-400'
-    : 'bg-blue-400';
+    : 'bg-emerald-400';
 
   const formatTime = (iso: string) =>
     new Date(iso).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });

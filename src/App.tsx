@@ -58,7 +58,7 @@ function App() {
             <button key={item.v}
               onClick={() => item.v === 'dashboard' && !userData ? setView('create-plan') : setView(item.v)}
               className={`font-bold px-4 py-2 rounded-full text-sm flex items-center gap-2 transition-all ${
-                view === item.v ? 'bg-blue-100 text-blue-600' : 'text-slate-500 hover:text-blue-500'
+                view === item.v ? 'bg-emerald-100 text-emerald-600' : 'text-slate-500 hover:text-emerald-500'
               }`}
             >
               <span className="material-symbols-outlined text-sm">{item.icon}</span>
@@ -69,7 +69,7 @@ function App() {
 
         <button onClick={() => setView('tracker')}
           className="rounded-full px-5 py-2 font-bold text-sm flex items-center gap-2 text-white"
-          style={{ background: 'linear-gradient(145deg,#3b82f6,#2563eb)', boxShadow: '4px 4px 10px rgba(37,99,235,0.35)' }}>
+          style={{ background: 'linear-gradient(145deg,#059669,#047857)', boxShadow: '4px 4px 10px rgba(5,150,105,0.35)' }}>
           <span className="material-symbols-outlined text-sm">add_a_photo</span>
           <span className="hidden md:inline">Analisar Refeição</span>
         </button>
