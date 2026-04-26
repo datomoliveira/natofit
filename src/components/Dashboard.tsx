@@ -103,6 +103,46 @@ const Dashboard: React.FC<DashboardProps> = ({ userData, refreshKey }) => {
         </div>
       </div>
 
+      {/* Calendário Semanal */}
+      <div className="mb-10 flex gap-3 overflow-x-auto pb-4 no-scrollbar">
+        {(() => {
+          const now = new Date();
+          // Ajuste para o fuso do Brasil (Brasília)
+          const today = new Date(now.toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' }));
+          
+          const dayOfWeek = today.getDay(); // 0 (Sun) to 6 (Sat)
+          const startOfWeek = new Date(today);
+          startOfWeek.setDate(today.getDate() - dayOfWeek); // Sempre começa no Domingo
+
+          return Array.from({ length: 7 }).map((_, i) => {
+            const date = new Date(startOfWeek);
+            date.setDate(startOfWeek.getDate() + i);
+            const isToday = date.toDateString() === today.toDateString();
+            const dayName = date.toLocaleDateString('pt-BR', { weekday: 'short' }).replace('.', '');
+            const dayNum = date.getDate();
+
+            return (
+              <div
+                key={i}
+                className={`flex-shrink-0 w-16 md:w-20 p-4 rounded-3xl flex flex-col items-center gap-1 transition-all ${
+                  isToday 
+                    ? 'bg-blue-500 text-white shadow-[0_10px_20px_rgba(59,130,246,0.3)] scale-105 z-10' 
+                    : 'bg-blue-50 text-slate-500'
+                }`}
+                style={isToday ? {} : clayBox}
+              >
+                <span className={`text-[10px] uppercase font-black tracking-widest ${isToday ? 'text-blue-100' : 'text-slate-400'}`}>
+                  {dayName}
+                </span>
+                <span className="text-xl md:text-2xl font-black">
+                  {dayNum}
+                </span>
+              </div>
+            );
+          });
+        })()}
+      </div>
+
       {/* Grid principal */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
 

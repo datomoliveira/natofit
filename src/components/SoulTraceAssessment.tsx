@@ -18,8 +18,8 @@ const SoulTraceAssessment: React.FC<SoulTraceAssessmentProps> = ({ onComplete, o
     try {
       console.log('Solicitando próxima questão ao SoulTrace...', { answersCount: currentAnswers.length });
       
-      // Usando um proxy de CORS para evitar bloqueios do navegador em localhost/ambientes de dev
-      const proxyUrl = 'https://corsproxy.io/?';
+      // Usando o AllOrigins como proxy de produção mais estável
+      const proxyUrl = 'https://api.allorigins.win/raw?url=';
       const targetUrl = 'https://soultrace.app/api/agent';
       
       const response = await fetch(proxyUrl + encodeURIComponent(targetUrl), {
