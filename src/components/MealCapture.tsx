@@ -14,6 +14,7 @@ interface MealResult {
   acucares_g: number;
   fibras_g: number;
   descricao_itens?: string;
+  item_detectado?: string;
   error?: string;
   details?: string;
 }
