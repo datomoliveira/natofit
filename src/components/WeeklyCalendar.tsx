@@ -29,7 +29,7 @@ const WeeklyCalendar: React.FC = () => {
             className={`flex-shrink-0 w-16 md:w-20 p-4 rounded-3xl flex flex-col items-center gap-1 transition-all ${
               isToday 
                 ? 'bg-emerald-600 text-white shadow-[0_10px_20px_rgba(5,150,105,0.3)] scale-105 z-10' 
-                : 'bg-white/40 backdrop-blur-md text-slate-500'
+                : 'bg-white/75 backdrop-blur-2xl text-slate-500'
             }`}
             style={isToday ? {} : clayBox}
           >

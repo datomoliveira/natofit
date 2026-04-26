@@ -179,7 +179,7 @@ function App() {
               </div>
 
               <div className="container mx-auto px-8 relative z-20">
-                <div className="max-w-3xl p-10 rounded-[3rem] bg-white/40 backdrop-blur-md border border-white/60 shadow-2xl">
+                <div className="max-w-3xl p-10 rounded-[3rem] bg-white/75 backdrop-blur-2xl border border-white/60 shadow-2xl">
                   <h1 className="text-5xl md:text-7xl font-black leading-tight tracking-tighter mb-6 text-slate-800">
                     Controle <br/><span className="text-emerald-600">Calórico</span><br/>Inteligente
                   </h1>
@@ -219,7 +219,7 @@ function App() {
                         if (f.v === 'create-plan' && !userData) setView('login');
                         else setView(f.v);
                       }}
-                      className="group rounded-[3rem] p-10 bg-white/60 backdrop-blur-lg cursor-pointer transition-transform hover:-translate-y-2 border border-white shadow-xl">
+                      className="group rounded-[3rem] p-10 bg-white/75 backdrop-blur-2xl cursor-pointer transition-transform hover:-translate-y-2 border border-white shadow-xl">
                       <span className="material-symbols-outlined text-emerald-600 text-5xl mb-5 block">{f.icon}</span>
                       <h3 className="text-2xl font-black text-slate-800 mb-3">{f.title}</h3>
                       <p className="text-slate-500 font-semibold leading-relaxed">{f.desc}</p>
@@ -232,7 +232,7 @@ function App() {
             {/* CTA */}
             <section className="py-20">
               <div className="container mx-auto px-8 text-center">
-                <div className="max-w-3xl mx-auto rounded-[3rem] p-14 bg-white/60 backdrop-blur-xl border border-white shadow-2xl">
+                <div className="max-w-3xl mx-auto rounded-[3rem] p-14 bg-white/75 backdrop-blur-2xl border border-white shadow-2xl">
                   <h2 className="text-4xl md:text-5xl font-black text-slate-800 mb-6">Comece Agora</h2>
                   <p className="text-slate-500 font-semibold text-lg mb-10 max-w-xl mx-auto">
                     Tire sua primeira foto e descubra exatamente o que está consumindo.

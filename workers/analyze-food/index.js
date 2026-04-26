@@ -66,18 +66,20 @@ export default {
       return new Response(null, { status: 204, headers: cors });
     }
 
-    // Proxy Ultra-Leve para o SoulTrace (CPU Zero)
+    // Proxy para o SoulTrace (Forçando PT-BR)
     if (request.method === 'POST' && new URL(request.url).pathname.endsWith('/soultrace')) {
       try {
+        const body = await request.json();
+        body.lang = 'pt-BR'; // Injeta o idioma diretamente no payload
+        
         const soulTraceResp = await fetch('https://soultrace.app/api/agent', {
           method: 'POST',
-          headers: { 
-            'Content-Type': 'application/json',
-            'Accept-Language': 'pt-BR' 
-          },
-          body: request.body // Repassa o stream diretamente sem carregar na memória/CPU
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
         });
-        return new Response(soulTraceResp.body, { 
+        
+        const data = await soulTraceResp.json();
+        return new Response(JSON.stringify(data), { 
           status: soulTraceResp.status, 
           headers: { ...cors, 'Content-Type': 'application/json' } 
         });
