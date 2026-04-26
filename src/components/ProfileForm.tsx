@@ -352,7 +352,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onComplete }) => {
         </div>
 
         <button type="submit" disabled={loading}
-          className="w-full py-5 bg-blue-500 text-white rounded-full font-black text-xl shadow-[0_8px_24px_rgba(59,130,246,0.3)] hover:bg-blue-600 active:scale-95 transition-all disabled:opacity-50 flex items-center justify-center gap-3"
+          className="w-full py-5 bg-emerald-600 text-white rounded-full font-black text-xl shadow-[0_8px_24px_rgba(5,150,105,0.3)] hover:bg-emerald-700 active:scale-95 transition-all disabled:opacity-50 flex items-center justify-center gap-3"
         >
           {loading ? (
             <><span className="material-symbols-outlined animate-spin">refresh</span>Processando...</>

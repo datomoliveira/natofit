@@ -69,20 +69,20 @@ const SoulTraceAssessment: React.FC<SoulTraceAssessmentProps> = ({ onComplete, o
 
   if (loading && !currentQuestion) {
     return (
-      <div className="p-8 text-center bg-blue-50/90 rounded-[2.5rem] clay-effect animate-pulse">
-        <span className="material-symbols-outlined text-4xl text-blue-500 animate-spin mb-4">sync</span>
+      <div className="p-8 text-center bg-emerald-50/90 rounded-[2.5rem] clay-effect animate-pulse">
+        <span className="material-symbols-outlined text-4xl text-emerald-600 animate-spin mb-4">sync</span>
         <p className="text-slate-600 font-bold tracking-widest uppercase text-sm">Analisando Perfil...</p>
       </div>
     );
   }
 
   return (
-    <div className="p-6 md:p-8 bg-blue-50/90 rounded-[2.5rem] clay-effect">
+    <div className="p-6 md:p-8 bg-emerald-50/90 rounded-[2.5rem] clay-effect">
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-xl font-black text-slate-800 tracking-tighter uppercase">
           Perfil de Treino
         </h3>
-        <span className="text-blue-500 font-bold text-sm bg-white px-3 py-1 rounded-full clay-effect">
+        <span className="text-emerald-600 font-bold text-sm bg-white px-3 py-1 rounded-full clay-effect">
           {progress.answered} / {progress.total}
         </span>
       </div>
@@ -99,7 +99,7 @@ const SoulTraceAssessment: React.FC<SoulTraceAssessmentProps> = ({ onComplete, o
               {getFitnessContext()}
             </p>
             <div className="bg-white p-6 rounded-2xl clay-effect mb-4 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
+              <div className="absolute top-0 left-0 w-1 h-full bg-emerald-600"></div>
               <h4 className="text-xl font-light text-slate-800 italic">
                 "{currentQuestion.text}"
               </h4>

@@ -21,15 +21,12 @@ jobs:
           MISSING=()
           [ -z "${{ secrets.CLOUDFLARE_API_TOKEN }}" ] && MISSING+=("CLOUDFLARE_API_TOKEN")
           [ -z "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" ] && MISSING+=("CLOUDFLARE_ACCOUNT_ID")
-          [ -z "${{ secrets.GEMINI_API_KEY }}" ] && MISSING+=("GEMINI_API_KEY")
           
           if [ ${#MISSING[@]} -ne 0 ]; then
-            echo "❌ ERRO: Os seguintes segredos estão faltando ou vazios no GitHub (Settings > Secrets > Actions):"
-            for s in "${MISSING[@]}"; do echo "   - $s"; done
-            echo "Acesse: https://github.com/${{ github.repository }}/settings/secrets/actions"
+            echo "❌ ERRO: Segredos de acesso à Cloudflare faltando no GitHub."
             exit 1
           fi
-          echo "✅ Todos os segredos necessários foram detectados."
+          echo "✅ Configurações de acesso detectadas."
 
       - name: Deploy com Wrangler
         uses: cloudflare/wrangler-action@v3
@@ -37,8 +34,4 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: 'workers/analyze-food'
-          secrets: |
-            GEMINI_API_KEY
           command: deploy
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
