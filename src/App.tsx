@@ -43,7 +43,7 @@ function App() {
   };
 
   return (
-    <div className="bg-[#f0fdf4] text-slate-800 font-sans w-full relative min-h-screen">
+    <div className="text-slate-800 font-sans w-full relative min-h-screen">
       {/* Background Animated Foods */}
       <FoodConveyor />
 
