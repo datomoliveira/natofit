@@ -70,11 +70,18 @@ export default {
     if (request.method === 'POST' && new URL(request.url).pathname.endsWith('/soultrace')) {
       try {
         const body = await request.json();
-        body.lang = 'pt-BR'; // Injeta o idioma diretamente no payload
+        
+        // Injeta o idioma de todas as formas possíveis para garantir
+        body.lang = 'pt-BR'; 
+        body.locale = 'pt-BR';
+        body.language = 'pt-BR';
         
         const soulTraceResp = await fetch('https://soultrace.app/api/agent', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+            'Accept-Language': 'pt-BR, pt;q=0.9' 
+          },
           body: JSON.stringify(body)
         });
         

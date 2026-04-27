@@ -117,7 +117,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onComplete }) => {
     }
   };
 
-  const inputClasses = "w-full p-4 bg-white/50 border-none rounded-2xl clay-effect focus:ring-2 focus:ring-blue-400 outline-none text-slate-700 placeholder:text-slate-400 font-medium transition-all";
+  const inputClasses = "w-full p-4 bg-white/50 border-none rounded-2xl clay-effect focus:ring-2 focus:ring-emerald-400 outline-none text-slate-700 placeholder:text-slate-400 font-medium transition-all";
   const labelClasses = "block text-sm font-black text-slate-500 mb-2 ml-1 uppercase tracking-wider";
 
   return (
@@ -138,7 +138,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onComplete }) => {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6 bg-blue-50/60 p-8 rounded-[2.5rem] clay-effect">
+      <form onSubmit={handleSubmit} className="space-y-6 bg-emerald-50/60 p-8 rounded-[2.5rem] clay-effect">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div>
             <label className={labelClasses}>Peso (kg)</label>
@@ -190,7 +190,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onComplete }) => {
                 onClick={() => setFormData({ ...formData, plano: p })}
                 className={`py-4 px-2 rounded-2xl text-sm font-bold transition-all ${
                   formData.plano === p
-                    ? 'bg-blue-500 text-white shadow-[0_4px_12px_rgba(59,130,246,0.3)]'
+                    ? 'bg-emerald-600 text-white shadow-[0_4px_12px_rgba(5,150,105,0.3)]'
                     : 'clay-button text-slate-500'
                 }`}
               >
@@ -207,7 +207,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onComplete }) => {
             onClick={() => setShowBioimSection(!showBioimSection)}
             className="w-full clay-button rounded-2xl p-5 flex items-center gap-4 text-left"
           >
-            <span className="material-symbols-outlined text-blue-400 text-3xl">biotech</span>
+            <span className="material-symbols-outlined text-emerald-400 text-3xl">biotech</span>
             <div className="flex-1">
               <p className="font-black text-slate-700">Laudo de Bioimpedância</p>
               <p className="text-slate-400 font-semibold text-xs">Opcional • Extração automática dos dados do laudo</p>
@@ -221,14 +221,14 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onComplete }) => {
             <div className="mt-4 clay-effect rounded-3xl p-6">
               {!bioimPreview ? (
                 <div className="text-center">
-                  <span className="material-symbols-outlined text-blue-200 text-5xl block mb-3">document_scanner</span>
+                  <span className="material-symbols-outlined text-emerald-200 text-5xl block mb-3">document_scanner</span>
                   <p className="text-slate-500 font-semibold text-sm mb-5">
                     Envie uma foto do seu laudo (InBody, Tanita, etc.)
                   </p>
                   <div className="flex gap-3 justify-center">
                     <button type="button"
                       onClick={() => { bioimInputRef.current?.setAttribute('capture', 'environment'); bioimInputRef.current?.click(); }}
-                      className="clay-button text-blue-600 px-6 py-3 rounded-full font-bold text-sm flex items-center gap-2"
+                      className="clay-button text-emerald-600 px-6 py-3 rounded-full font-bold text-sm flex items-center gap-2"
                     >
                       <span className="material-symbols-outlined text-sm">camera_alt</span> Câmera
                     </button>
@@ -248,7 +248,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onComplete }) => {
                     <img src={bioimPreview} alt="Laudo" className="w-16 h-16 rounded-2xl object-cover" />
                     <div className="flex-1">
                       {bioimLoading && (
-                        <div className="flex items-center gap-2 text-blue-500">
+                        <div className="flex items-center gap-2 text-emerald-500">
                           <span className="material-symbols-outlined animate-spin text-sm">refresh</span>
                           <span className="text-sm font-bold">Analisando laudo...</span>
                         </div>
@@ -272,31 +272,31 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onComplete }) => {
                     <div className="grid grid-cols-2 gap-3">
                       {bioimData.bodyFatPercent != null && (
                         <div className="clay-effect rounded-2xl p-3 text-center">
-                          <p className="text-blue-500 font-black text-xl">{bioimData.bodyFatPercent}%</p>
+                          <p className="text-emerald-500 font-black text-xl">{bioimData.bodyFatPercent}%</p>
                           <p className="text-slate-400 font-bold text-xs">% Gordura</p>
                         </div>
                       )}
                       {bioimData.leanMassKg != null && (
                         <div className="clay-effect rounded-2xl p-3 text-center">
-                          <p className="text-blue-500 font-black text-xl">{bioimData.leanMassKg}kg</p>
+                          <p className="text-emerald-500 font-black text-xl">{bioimData.leanMassKg}kg</p>
                           <p className="text-slate-400 font-bold text-xs">Massa Magra</p>
                         </div>
                       )}
                       {bioimData.bodyWaterPercent != null && (
                         <div className="clay-effect rounded-2xl p-3 text-center">
-                          <p className="text-blue-500 font-black text-xl">{bioimData.bodyWaterPercent}%</p>
+                          <p className="text-emerald-500 font-black text-xl">{bioimData.bodyWaterPercent}%</p>
                           <p className="text-slate-400 font-bold text-xs">Água Corporal</p>
                         </div>
                       )}
                       {bioimData.metabolicAge != null && (
                         <div className="clay-effect rounded-2xl p-3 text-center">
-                          <p className="text-blue-500 font-black text-xl">{bioimData.metabolicAge}</p>
+                          <p className="text-emerald-500 font-black text-xl">{bioimData.metabolicAge}</p>
                           <p className="text-slate-400 font-bold text-xs">Idade Metabólica</p>
                         </div>
                       )}
                       {bioimData.basalMetabolicRate != null && (
                         <div className="clay-effect rounded-2xl p-3 text-center col-span-2">
-                          <p className="text-green-500 font-black text-xl">{bioimData.basalMetabolicRate} kcal</p>
+                          <p className="text-emerald-500 font-black text-xl">{bioimData.basalMetabolicRate} kcal</p>
                           <p className="text-slate-400 font-bold text-xs">TMB (do laudo) — será usado no plano</p>
                         </div>
                       )}
